@@ -11,14 +11,9 @@ export type NavigationGroup = {
 
 export const navigationData: NavigationItem[] = [
   {
-    label: "Home",
-    href: "/",
-    description: "Back to home",
-  },
-  {
-    label: "About",
-    href: "/about",
-    description: "Learn about our mission",
+    label: "Projects",
+    href: "/projects",
+    description: "Our work and initiatives",
   },
   {
     label: "Services",
@@ -26,14 +21,14 @@ export const navigationData: NavigationItem[] = [
     description: "What we offer",
   },
   {
-    label: "Projects",
-    href: "/projects",
-    description: "Our work and initiatives",
-  },
-  {
     label: "Journal",
     href: "/journal",
     description: "Latest updates and insights",
+  },
+  {
+    label: "About",
+    href: "/about",
+    description: "Learn about our mission",
   },
 ];
 
