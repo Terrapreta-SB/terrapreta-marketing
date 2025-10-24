@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Link from "next/link";
-import type { Slug } from "@/sanity/types";
+import type { Slug, Tag } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
+import { Badge } from "@/components/ui/badge"
 
 type GridItemProps = {
   _id: string;
@@ -19,12 +20,14 @@ type GridItemProps = {
   } | null;
   isBig?: boolean;
   slug: Slug | null;
+  shortDescription: string | null;
+  tag: Tag | null;
   gridDimension: {
     isBig: boolean | null;
   } | null;
 };
 
-function GridItem({ name, mainImage, isBig, slug }: GridItemProps) {
+function GridItem({ name, mainImage, tag, isBig, slug, shortDescription }: GridItemProps) {
   if (!mainImage?.image?.asset) {
     return null;
   }
@@ -32,7 +35,7 @@ function GridItem({ name, mainImage, isBig, slug }: GridItemProps) {
   return (
     <Link
       href={slug}
-      className={`space-y-5 ${isBig ? "col-span-2" : "col-span-1"}`}
+      className={`space-y-2.5 h-fit  ${isBig ? "col-span-2" : "col-span-1"}`}
     >
       <AspectRatio className="realative" ratio={3 / 2}>
         <Image
@@ -46,26 +49,38 @@ function GridItem({ name, mainImage, isBig, slug }: GridItemProps) {
             .quality(10)
             .auto("format")
             .url()}
-          sizes="30vw"
+          sizes={isBig ? "50vw" : "30vw"}
           quality={75}
           className="object-cover h-full w-full"
         />
       </AspectRatio>
-      <h2>{name}</h2>
+      <hgroup className="space-y-2">
+        <Badge variant="">{tag?.name}</Badge>
+        <h2 className="text-xl">{name}</h2>
+      </hgroup>
+      
     </Link>
   );
 }
 
-export default function PageGrid({ items }: { items: GridItemProps[] }) {
+export default function PageGrid({ 
+  items, 
+  basePath 
+}: { 
+  items: GridItemProps[];
+  basePath: string;
+}) {
   return (
     <section className="grid grid-cols-3 max-w-7xl pb-40 mx-auto gap-x-5 gap-y-15 w-full">
       {items.map((item) => (
         <GridItem
           key={item._id}
           name={item?.name}
+          shortDescription={item?.shortDescription}
           mainImage={item?.mainImage}
-          slug={item?.slug?.current}
-          isBig={item?.gridDimension?.isBig}
+          tag={item?.tag}
+          slug={item?.slug?.current ? `/${basePath}/${item.slug.current}` : undefined}
+          isBig={item?.gridDimension?.isBig ?? undefined}
         />
       ))}
     </section>

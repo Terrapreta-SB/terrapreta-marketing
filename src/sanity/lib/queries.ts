@@ -5,6 +5,7 @@ export const JOURNAL_QUERY =
   _id,
   name,
   slug,
+  shortDescription,
   gridDimension{
     isBig
   },
@@ -28,8 +29,8 @@ export const JOURNAL_QUERY =
 export const JOURNAL_ITEM_QUERY =
   defineQuery(`*[_type == "journal" && slug.current == $slug][0]{
   _id,
-  title,
-  body,
+  name,
+  slug,
   mainImage{
     _type,
     image{

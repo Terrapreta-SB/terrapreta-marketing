@@ -44,7 +44,7 @@ export default function Header() {
 
   return (
     <div
-      className={`fixed py-4 top-0 left-0 right-0 z-50 flex items-center justify-center transition-all duration-300 ${
+      className={`fixed py-4 top-0 left-0 right-0 z-50 flex items-center justify-center transition-all duration-100 ${
         isScrolled ? "bg-stone-950 border-b border-stone-900" : "bg-transparent"
       }`}
     >

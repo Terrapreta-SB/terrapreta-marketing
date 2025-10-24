@@ -48,10 +48,17 @@ export const projectDoc = defineType({
       name: "content",
       title: "Content",
     }),
+ defineField({
+      type: "reference",
+      name: "relatedService",
+      title: "Related Service",
+      to: [{ type: "service" }],
+    }),
     defineField({
-      type: "referenceToObject",
-      name: "relatedTo",
-      title: "Related To",
+      type: "reference",
+      name: "relatedResearch",
+      title: "Related Research",
+      to: [{ type: "research" }],
     }),
   ],
 });

@@ -18,9 +18,16 @@ export const serviceDoc = defineType({
       validation: (e) => e.required(),
     }),
     defineField({
-      type: "referenceToObject",
-      name: "relatedTo",
-      title: "Related To",
+      type: "reference",
+      name: "relatedProject",
+      title: "Related Project",
+      to: [{ type: "project" }],
+    }),
+    defineField({
+      type: "reference",
+      name: "relatedResearch",
+      title: "Related Research",
+      to: [{ type: "research" }],
     }),
   ],
 });

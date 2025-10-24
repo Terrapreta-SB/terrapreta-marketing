@@ -1,4 +1,4 @@
-import PageGrid from "@/components/shared/page-grid";
+import PageGrid from "@/components/layout/page-grid";
 import PageHeader from "@/components/shared/page-header";
 import { sanityFetch } from "@/sanity/lib/live";
 import { JOURNAL_QUERY } from "@/sanity/lib/queries";
@@ -10,9 +10,17 @@ export default async function Page() {
     <>
       <PageHeader
         title="Journal"
-        description="Our latest updates and insights"
-      />
-      <PageGrid items={journal} />
+        position="left"
+      >
+      <nav>
+        <ul className="flex gap-2.5">
+          <li>All</li>
+          <li className="text-muted-foreground">News</li>
+          <li className="text-muted-foreground">Exhibitions</li>
+        </ul>
+      </nav>
+      </PageHeader>
+      <PageGrid items={journal} basePath="journal" />
     </>
   );
 }

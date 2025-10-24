@@ -60,10 +60,23 @@ export const journalDoc = defineType({
         defineArrayMember({ type: "imageObject" }),
       ],
     }),
+ defineField({
+      type: "reference",
+      name: "relatedService",
+      title: "Related Service",
+      to: [{ type: "service" }],
+    }),
     defineField({
-      type: "referenceToObject",
-      name: "relatedTo",
-      title: "Related To",
+      type: "reference",
+      name: "relatedProject",
+      title: "Related Project",
+      to: [{ type: "project" }],
+    }),
+    defineField({
+      type: "reference",
+      name: "relatedResearch",
+      title: "Related Research",
+      to: [{ type: "research" }],
     }),
   ],
 });

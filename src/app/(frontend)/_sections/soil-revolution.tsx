@@ -28,7 +28,7 @@ export default function SoilRevolution() {
   return (
     <div
       id="soil-revolution"
-      className="w-full max-w-7xl mx-auto py-10 gap-10 flex  flex-col items-start  "
+      className="w-full max-w-7xl mx-auto py-10 scroll-mt-16 gap-10 flex  flex-col items-start  "
     >
       <h2 className="text-3xl">Leading the soil revolution</h2>
       <div className="grid w-full grid-cols-3 gap-5">

@@ -17,10 +17,17 @@ export const researchDoc = defineType({
       title: "Main Image",
       validation: (e) => e.required(),
     }),
+ defineField({
+      type: "reference",
+      name: "relatedService",
+      title: "Related Service",
+      to: [{ type: "service" }],
+    }),
     defineField({
-      type: "referenceToObject",
-      name: "relatedTo",
-      title: "Related To",
+      type: "reference",
+      name: "relatedProject",
+      title: "Related Project",
+      to: [{ type: "project" }],
     }),
   ],
 });

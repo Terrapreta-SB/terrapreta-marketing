@@ -13,73 +13,16 @@
  */
 
 // Source: schema.json
-export type Service = {
+export type Glossary = {
   _id: string;
-  _type: "service";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  titleSlug?: TitleSlugObject;
-  mainImage?: ImageObject;
-  relatedTo?: ReferenceToObject;
-};
-
-export type Research = {
-  _id: string;
-  _type: "research";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  titleSlug?: TitleSlugObject;
-  mainImage?: ImageObject;
-  relatedTo?: ReferenceToObject;
-};
-
-export type TitleSlugObject = {
-  _type: "titleSlugObject";
-  name?: string;
-  slug?: Slug;
-};
-
-export type Project = {
-  _id: string;
-  _type: "project";
+  _type: "glossary";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   name?: string;
   slug?: Slug;
-  mainImage?: ImageObject;
-  status?: string;
-  location?: string;
-  areaRestored?: number;
-  interventionType?: string;
-  content?: ContentObject;
-  relatedTo?: ReferenceToObject;
-};
-
-export type ContentObject = {
-  _type: "contentObject";
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    _key: string;
-  } & ImageObject>;
+  image?: ImageObject;
+  definition?: string;
 };
 
 export type Journal = {
@@ -120,11 +63,6 @@ export type Journal = {
   } | {
     _key: string;
   } & ImageObject>;
-  relatedTo?: ReferenceToObject;
-};
-
-export type ReferenceToObject = {
-  _type: "referenceToObject";
   relatedService?: {
     _ref: string;
     _type: "reference";
@@ -143,6 +81,108 @@ export type ReferenceToObject = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "research";
   };
+};
+
+export type Service = {
+  _id: string;
+  _type: "service";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  titleSlug?: TitleSlugObject;
+  mainImage?: ImageObject;
+  relatedProject?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "project";
+  };
+  relatedResearch?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "research";
+  };
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  mainImage?: ImageObject;
+  status?: string;
+  location?: string;
+  areaRestored?: number;
+  interventionType?: string;
+  content?: ContentObject;
+  relatedService?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "service";
+  };
+  relatedResearch?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "research";
+  };
+};
+
+export type Research = {
+  _id: string;
+  _type: "research";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  titleSlug?: TitleSlugObject;
+  mainImage?: ImageObject;
+  relatedService?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "service";
+  };
+  relatedProject?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "project";
+  };
+};
+
+export type ContentObject = {
+  _type: "contentObject";
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    _key: string;
+  } & ImageObject>;
+};
+
+export type TitleSlugObject = {
+  _type: "titleSlugObject";
+  name?: string;
+  slug?: Slug;
 };
 
 export type ImageObject = {
@@ -305,15 +345,16 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Service | Research | TitleSlugObject | Project | ContentObject | Journal | ReferenceToObject | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Glossary | Journal | Service | Project | Research | ContentObject | TitleSlugObject | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: JOURNAL_QUERY
-// Query: *[_type == "journal" && defined(slug.current)] | order(publishingDate desc){  _id,  name,  slug,  gridDimension{    isBig  },  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  publishingDate,  tag->{    _id,    name  }}
+// Query: *[_type == "journal" && defined(slug.current)] | order(publishingDate desc){  _id,  name,  slug,  shortDescription,  gridDimension{    isBig  },  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  publishingDate,  tag->{    _id,    name  }}
 export type JOURNAL_QUERYResult = Array<{
   _id: string;
   name: string | null;
   slug: Slug | null;
+  shortDescription: string | null;
   gridDimension: {
     isBig: boolean | null;
   } | null;
@@ -334,11 +375,11 @@ export type JOURNAL_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: JOURNAL_ITEM_QUERY
-// Query: *[_type == "journal" && slug.current == $slug][0]{  _id,  title,  body,  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  publishingDate,  tag->{    _id,    name  }}
+// Query: *[_type == "journal" && slug.current == $slug][0]{  _id,  name,  slug,  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  publishingDate,  tag->{    _id,    name  }}
 export type JOURNAL_ITEM_QUERYResult = {
   _id: string;
-  title: null;
-  body: null;
+  name: string | null;
+  slug: Slug | null;
   mainImage: {
     _type: "imageObject";
     image: {
@@ -360,7 +401,7 @@ export type JOURNAL_ITEM_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"journal\" && defined(slug.current)] | order(publishingDate desc){\n  _id,\n  name,\n  slug,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_QUERYResult;
-    "*[_type == \"journal\" && slug.current == $slug][0]{\n  _id,\n  title,\n  body,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_ITEM_QUERYResult;
+    "*[_type == \"journal\" && defined(slug.current)] | order(publishingDate desc){\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_QUERYResult;
+    "*[_type == \"journal\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_ITEM_QUERYResult;
   }
 }
