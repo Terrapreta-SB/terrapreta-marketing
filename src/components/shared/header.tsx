@@ -53,23 +53,9 @@ export default function Header() {
           <Logotype />
         </Link>
         <Navigation />
-        <Dialog>
-          <DialogTrigger>
-            <Button variant={buttonVariant} size={"sm"}>
-              Contact Us
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Get in touch</DialogTitle>
-              <DialogDescription>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Vulputate mi sit amet mauris commodo quis.
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+        <Button variant={buttonVariant} size={"sm"}>
+          Contact Us
+        </Button>
       </header>
     </div>
   );
