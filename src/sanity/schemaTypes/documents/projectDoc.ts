@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineField, defineType } from "sanity";
 
 export const projectDoc = defineType({
   type: "document",
@@ -30,6 +30,14 @@ export const projectDoc = defineType({
       type: "string",
       name: "status",
       title: "Status",
+      options: {
+        list: [
+          { title: "Completed", value: "completed" },
+          { title: "In Progress", value: "in-progress" },
+          { title: "On Hold", value: "on-hold" },
+          { title: "Cancelled", value: "cancelled" },
+        ],
+      },
       validation: (e) => e.required(),
     }),
     defineField({ type: "string", name: "location", title: "Location" }),
@@ -45,10 +53,10 @@ export const projectDoc = defineType({
     }),
     defineField({
       type: "contentObject",
-      name: "content",
-      title: "Content",
+      name: "pageContent",
+      title: "Page Content",
     }),
- defineField({
+    defineField({
       type: "reference",
       name: "relatedService",
       title: "Related Service",

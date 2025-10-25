@@ -1,5 +1,30 @@
 import { defineQuery } from "next-sanity";
 
+export const PROJECTS_QUERY =
+  defineQuery(`*[_type == "project" && defined(slug.current)] {
+  _id,
+  name,
+  slug,
+  shortDescription,
+  gridDimension{
+    isBig
+  },
+  mainImage{
+    _type,
+    image{
+      _type,
+      asset->{
+        _id,
+        url
+      }
+    }
+  },
+  tag->{
+    _id,
+    name
+  }
+}`);
+
 export const JOURNAL_QUERY =
   defineQuery(`*[_type == "journal" && defined(slug.current)] | order(publishingDate desc){
   _id,
@@ -46,4 +71,10 @@ export const JOURNAL_ITEM_QUERY =
     _id,
     name
   }
+}`);
+
+export const TAGS_QUERY = defineQuery(`*[_type == "tag"] | order(name asc){
+  _id,
+  name,
+  slug
 }`);

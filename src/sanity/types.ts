@@ -13,6 +13,74 @@
  */
 
 // Source: schema.json
+export type HeroSplitModule = {
+  _type: "heroSplitModule";
+  name?: string;
+};
+
+export type Modules = Array<{
+  _key: string;
+} & HeroSplitModule>;
+
+export type Process = {
+  _id: string;
+  _type: "process";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+};
+
+export type Capability = {
+  _id: string;
+  _type: "capability";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+};
+
+export type About = {
+  _id: string;
+  _type: "about";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+};
+
+export type Press = {
+  _id: string;
+  _type: "press";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+};
+
+export type Site = {
+  _id: string;
+  _type: "site";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+};
+
+export type Page = {
+  _id: string;
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  mainImage?: ImageObject;
+  modules?: Array<{
+    _key: string;
+  } & HeroSplitModule>;
+};
+
 export type Glossary = {
   _id: string;
   _type: "glossary";
@@ -89,8 +157,17 @@ export type Service = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  titleSlug?: TitleSlugObject;
+  name?: string;
+  slug?: Slug;
   mainImage?: ImageObject;
+  capabilities?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "capability";
+  }>;
+  pageContent?: ContentObject;
   relatedProject?: {
     _ref: string;
     _type: "reference";
@@ -114,11 +191,11 @@ export type Project = {
   name?: string;
   slug?: Slug;
   mainImage?: ImageObject;
-  status?: string;
+  status?: "completed" | "in-progress" | "on-hold" | "cancelled";
   location?: string;
   areaRestored?: number;
   interventionType?: string;
-  content?: ContentObject;
+  pageContent?: ContentObject;
   relatedService?: {
     _ref: string;
     _type: "reference";
@@ -155,6 +232,12 @@ export type Research = {
   };
 };
 
+export type TitleSlugObject = {
+  _type: "titleSlugObject";
+  name?: string;
+  slug?: Slug;
+};
+
 export type ContentObject = {
   _type: "contentObject";
   content?: Array<{
@@ -177,12 +260,6 @@ export type ContentObject = {
   } | {
     _key: string;
   } & ImageObject>;
-};
-
-export type TitleSlugObject = {
-  _type: "titleSlugObject";
-  name?: string;
-  slug?: Slug;
 };
 
 export type ImageObject = {
@@ -345,9 +422,29 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Glossary | Journal | Service | Project | Research | ContentObject | TitleSlugObject | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = HeroSplitModule | Modules | Process | Capability | About | Press | Site | Page | Glossary | Journal | Service | Project | Research | TitleSlugObject | ContentObject | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
+// Variable: PROJECTS_QUERY
+// Query: *[_type == "project" && defined(slug.current)] {  _id,  name,  slug,  shortDescription,  gridDimension{    isBig  },  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  tag->{    _id,    name  }}
+export type PROJECTS_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  slug: Slug | null;
+  shortDescription: null;
+  gridDimension: null;
+  mainImage: {
+    _type: "imageObject";
+    image: {
+      _type: "image";
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+    } | null;
+  } | null;
+  tag: null;
+}>;
 // Variable: JOURNAL_QUERY
 // Query: *[_type == "journal" && defined(slug.current)] | order(publishingDate desc){  _id,  name,  slug,  shortDescription,  gridDimension{    isBig  },  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  publishingDate,  tag->{    _id,    name  }}
 export type JOURNAL_QUERYResult = Array<{
@@ -396,12 +493,21 @@ export type JOURNAL_ITEM_QUERYResult = {
     name: string | null;
   } | null;
 } | null;
+// Variable: TAGS_QUERY
+// Query: *[_type == "tag"] | order(name asc){  _id,  name,  slug}
+export type TAGS_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  slug: Slug | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_type == \"project\" && defined(slug.current)] {\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  tag->{\n    _id,\n    name\n  }\n}": PROJECTS_QUERYResult;
     "*[_type == \"journal\" && defined(slug.current)] | order(publishingDate desc){\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_QUERYResult;
     "*[_type == \"journal\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_ITEM_QUERYResult;
+    "*[_type == \"tag\"] | order(name asc){\n  _id,\n  name,\n  slug\n}": TAGS_QUERYResult;
   }
 }
