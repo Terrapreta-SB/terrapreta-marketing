@@ -23,6 +23,11 @@ export const serviceDoc = defineType({
       },
     }),
     defineField({
+      type: "text",
+      name: "shortDescription",
+      title: "Short Description",
+    }),
+    defineField({
       type: "imageObject",
       name: "mainImage",
       title: "Main Image",

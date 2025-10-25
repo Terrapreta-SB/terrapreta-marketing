@@ -1,8 +1,10 @@
 import {
+  Building,
   FileStack,
   GraduationCap,
   Hammer,
   HeartHandshake,
+  Link,
   Mailbox,
   Newspaper,
   Rocket,
@@ -52,6 +54,12 @@ export const structure = structureTool({
             .title("Capabilities")
             .icon(GraduationCap),
           S.documentTypeListItem("process").title("Processes").icon(Route),
+          S.documentTypeListItem("organization")
+            .title("Organizations")
+            .icon(Building),
         ]),
+        S.divider(),
+
+        S.documentTypeListItem("navigation").title("Navigations").icon(Link),
       ]),
 });

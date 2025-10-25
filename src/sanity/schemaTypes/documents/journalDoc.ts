@@ -1,4 +1,4 @@
-import { defineType, defineField, defineArrayMember } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const journalDoc = defineType({
   type: "document",
@@ -33,6 +33,12 @@ export const journalDoc = defineType({
       validation: (e) => e.required(),
     }),
     defineField({
+      type: "string",
+      name: "location",
+      title: "Location",
+      validation: (e) => e.required(),
+    }),
+    defineField({
       type: "date",
       name: "publishingDate",
       title: "Publishing Date",
@@ -60,7 +66,7 @@ export const journalDoc = defineType({
         defineArrayMember({ type: "imageObject" }),
       ],
     }),
- defineField({
+    defineField({
       type: "reference",
       name: "relatedService",
       title: "Related Service",

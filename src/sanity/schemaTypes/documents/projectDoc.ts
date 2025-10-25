@@ -32,9 +32,10 @@ export const projectDoc = defineType({
       title: "Status",
       options: {
         list: [
-          { title: "Completed", value: "completed" },
-          { title: "In Progress", value: "in-progress" },
           { title: "On Hold", value: "on-hold" },
+          { title: "In Progress", value: "in-progress" },
+          { title: "In Costruction", value: "in-costruction" },
+          { title: "Completed", value: "completed" },
           { title: "Cancelled", value: "cancelled" },
         ],
       },
@@ -42,14 +43,20 @@ export const projectDoc = defineType({
     }),
     defineField({ type: "string", name: "location", title: "Location" }),
     defineField({
-      type: "number",
+      type: "string",
       name: "areaRestored",
       title: "Area Restored",
+      description: "Specify the unit of measurement",
     }),
     defineField({
       type: "string",
       name: "interventionType",
       title: "Intervention Type",
+    }),
+    defineField({
+      type: "text",
+      name: "shortDescription",
+      title: "Short Description",
     }),
     defineField({
       type: "contentObject",

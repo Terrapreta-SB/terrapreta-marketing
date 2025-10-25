@@ -81,7 +81,7 @@ export default function PageGrid({
   basePath: string;
 }) {
   return (
-    <section className="mx-auto grid w-full max-w-7xl grid-cols-3 gap-x-5 gap-y-15 pb-40">
+    <section className="container-site mx-auto grid w-full grid-cols-3 gap-x-5 gap-y-15 pb-40">
       {items.map((item) => (
         <GridItem
           isBig={item?.gridDimension?.isBig ?? undefined}

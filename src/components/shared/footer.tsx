@@ -4,8 +4,8 @@ import { Button } from "../ui/button";
 
 export default function Footer() {
   return (
-    <div className="w-full border-t border-stone-900 flex justify-center">
-      <footer className=" w-full grid grid-cols-3 gap-5 justify-start py-20 max-w-7xl mx-auto">
+    <div className="flex w-full justify-center border-stone-800 border-t">
+      <footer className="container-site mx-auto grid w-full grid-cols-3 justify-start gap-5 py-20">
         <div className="flex flex-col gap-10">
           <div className="h-6 w-fit">
             <Mark />
@@ -20,7 +20,7 @@ export default function Footer() {
             </Button>
           </div>
         </div>
-        <div className="flex items-start justify-end col-span-2 gap-10">
+        <div className="col-span-2 flex items-start justify-end gap-10">
           <div>
             <h3>Services</h3>
             <ul>

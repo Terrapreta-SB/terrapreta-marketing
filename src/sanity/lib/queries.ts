@@ -66,7 +66,10 @@ export const JOURNAL_ITEM_QUERY =
       }
     }
   },
+  location,
   publishingDate,
+  shortDescription,
+  contentObject,
   tag->{
     _id,
     name
@@ -77,4 +80,22 @@ export const TAGS_QUERY = defineQuery(`*[_type == "tag"] | order(name asc){
   _id,
   name,
   slug
+}`);
+
+export const SERVICES_QUERY =
+  defineQuery(`*[_type == "service" && defined(slug.current)] | order(name asc){
+  _id,
+  name,
+  slug,
+  shortDescription,
+  mainImage{
+    _type,
+    image{
+      _type,
+      asset->{
+        _id,
+        url
+      }
+    }
+  }
 }`);

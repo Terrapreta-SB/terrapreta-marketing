@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/shared/header";
-import Footer from "@/components/shared/footer";
 import localFont from "next/font/local";
 
 const sans = localFont({
@@ -42,9 +40,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth bg-stone-950">
+    <html className="dark scroll-smooth bg-stone-950" lang="en">
+      <head>
+        <meta content="Terrapreta" name="apple-mobile-web-app-title" />
+      </head>
       <body
-        className={`${sans.variable} antialiased  flex flex-col h-screen justify-between bg-stone-950 font-sans text-stone-50`}
+        className={`${sans.variable} flex h-screen flex-col justify-between bg-stone-950 font-sans text-stone-50 antialiased`}
       >
         {children}
       </body>

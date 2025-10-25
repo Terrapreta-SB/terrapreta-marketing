@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button";
 
 export default function PilotProject() {
   return (
-    <div className="flex h-[70vh] w-full items-center justify-center bg-green-800 py-20">
-      <AspectRatio>
-        {/*  <Image alt="Pilot Project" src={pilotProjectImage} /> */}
+    <div className="container-site flex items-center justify-center">
+      <AspectRatio className="relative w-1/2" ratio={3 / 2}>
+        <div className="absolute inset-0 h-full w-full bg-red-500">div</div>
       </AspectRatio>
 
-      <div>
+      <div className="w-1/2">
         <hgroup className="">
           <h2 className="text-3xl">Osservatorio La Goccia</h2>
           <p>Il nostro progetto pilota</p>

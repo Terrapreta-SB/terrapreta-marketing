@@ -4,6 +4,8 @@ import { capabilityDoc } from "./documents/capabilityDoc";
 /* Documents */
 import { glossaryDoc } from "./documents/glossaryDoc";
 import { journalDoc } from "./documents/journalDoc";
+import { navigationDoc } from "./documents/navigationDoc";
+import { organizationDoc } from "./documents/organizationDoc";
 import { pageDoc } from "./documents/pageDoc";
 import { pressDoc } from "./documents/pressDoc";
 import { processDoc } from "./documents/processDoc";
@@ -12,6 +14,7 @@ import { researchDoc } from "./documents/researchDoc";
 import { serviceDoc } from "./documents/serviceDoc";
 import { siteDoc } from "./documents/siteDoc";
 import { tagDoc } from "./documents/tagDoc";
+
 /* Fragments */
 import modules from "./fragments/modules";
 /* Modules */
@@ -20,7 +23,9 @@ import { heroSplitModule } from "./modules/hero-split";
 import { contentObject } from "./objects/contentObject";
 import { gridDimensionObject } from "./objects/gridDimensionObject";
 import { imageObject } from "./objects/imageObject";
+import { linkObject } from "./objects/linkObject";
 import { titleSlugObject } from "./objects/titleSlugObject";
+
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     /* Documents */
@@ -36,12 +41,15 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     aboutDoc,
     capabilityDoc,
     processDoc,
+    navigationDoc,
+    organizationDoc,
 
     /* Objects */
     titleSlugObject,
     imageObject,
     contentObject,
     gridDimensionObject,
+    linkObject,
 
     /* Fragments */
     modules,
