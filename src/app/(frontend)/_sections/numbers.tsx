@@ -7,7 +7,7 @@ type NumberCardProps = {
 
 function NumberCard({ title, description }: NumberCardProps) {
   return (
-    <div className="flex aspect-square flex-col justify-between gap-5 rounded-lg bg-stone-900 p-5">
+    <div className="flex aspect-square flex-col justify-between gap-5 rounded-lg border border-stone-800 bg-linear-to-b from-stone-900 to-transparent p-5">
       <h3 className="text-3xl">{title}</h3>
       <p>{description}</p>
     </div>
@@ -30,7 +30,7 @@ export default function Numbers() {
       </div>
 
       <div className="flex w-1/2 flex-col gap-5">
-        <div className="flex flex-col gap-2 rounded-lg bg-stone-900 px-5 py-2.5">
+        <div className="flex flex-col gap-2 rounded-lg border border-stone-800 bg-linear-to-r from-stone-900 to-transparent px-5 py-2.5">
           <h3 className="text-lg">Numbers in the EU</h3>
         </div>
         <div className="grid w-full grid-cols-2 gap-5">

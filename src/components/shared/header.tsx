@@ -1,15 +1,18 @@
 "use client";
 
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logotype from "@/components/brand/logotype";
 import { Button } from "@/components/ui/button";
-import Navigation from "./navigation";
+import NavigationDesktop from "./navigation/navigation-desktop";
+import NavigationMobile from "./navigation/navigation-mobile";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHalfScrolled, setIsHalfScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
@@ -28,6 +31,20 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
+  // Block scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
   const buttonVariant = isHomePage && !isHalfScrolled ? "default" : "brand";
 
   return (
@@ -36,22 +53,45 @@ export default function Header() {
         isScrolled ? "border-stone-800 border-b bg-stone-950" : "bg-transparent"
       }`}
     >
-      <header className="container-site flex w-full items-center justify-between">
+      <header className="container-site z-20 flex w-full items-center justify-between">
         <Link className="h-6 w-fit" href="/">
           <Logotype />
         </Link>
-        <Navigation />
-        <Button
-          onClick={() => {
-            const email = "mail@terrapreta.com".split("").reverse().join("");
-            window.location.href = `mailto:${email.split("").reverse().join("")}`;
-          }}
-          size={"sm"}
-          variant={buttonVariant}
-        >
-          Contact Us
-        </Button>
+        <NavigationDesktop />
+        <div className="flex items-center gap-4">
+          <Button
+            onClick={() => {
+              const email = "mail@terrapreta.com".split("").reverse().join("");
+              window.location.href = `mailto:${email.split("").reverse().join("")}`;
+            }}
+            size={"sm"}
+            variant={buttonVariant}
+          >
+            Contact Us
+          </Button>
+          <Button
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            size="icon"
+            variant="ghost"
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-4 w-4" />
+            ) : (
+              <Menu className="h-4 w-4" />
+            )}
+          </Button>
+        </div>
       </header>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-10 bg-stone-950 md:hidden">
+          <div className="p-5 pt-24">
+            <NavigationMobile onLinkClick={() => setIsMobileMenuOpen(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

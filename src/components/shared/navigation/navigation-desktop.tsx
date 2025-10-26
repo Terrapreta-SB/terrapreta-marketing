@@ -1,14 +1,14 @@
-import { navigationData } from "@/lib/navigation";
 import Link from "next/link";
+import { navigationData } from "@/lib/navigation";
 
 export default function NavigationDesktop() {
   return (
-    <nav className="hidden md:flex items-center space-x-8">
+    <nav className="hidden items-center space-x-8 md:flex">
       {navigationData.map((item) => (
         <Link
-          key={item.href}
+          className="font-medium text-foreground text-sm transition-colors hover:text-primary"
           href={item.href}
-          className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+          key={item.href}
         >
           {item.label}
         </Link>
