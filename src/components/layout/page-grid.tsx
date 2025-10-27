@@ -5,7 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { urlFor } from "@/sanity/lib/image";
 import type { JOURNAL_QUERYResult, PROJECTS_QUERYResult } from "@/sanity/types";
 
-type GridItemProps = JOURNAL_QUERYResult[0] | PROJECTS_QUERYResult[0];
+type GridItemProps = Omit<
+  JOURNAL_QUERYResult[0] | PROJECTS_QUERYResult[0],
+  "slug"
+> & {
+  isBig?: boolean;
+  publishingDate?: string | null;
+  slug: string;
+};
 
 const BLUR_QUALITY = 5;
 const BLUR_SIZE = 24;
@@ -82,22 +89,25 @@ export default function PageGrid({
 }) {
   return (
     <section className="container-site mx-auto grid w-full grid-cols-3 gap-x-5 gap-y-15 pb-40">
-      {items.map((item) => (
-        <GridItem
-          isBig={item?.gridDimension?.isBig ?? undefined}
-          key={item._id}
-          mainImage={item?.mainImage}
-          name={item?.name}
-          publishingDate={item?.publishingDate}
-          shortDescription={item?.shortDescription}
-          slug={
-            item?.slug?.current
-              ? `/${basePath}/${item.slug.current}`
-              : undefined
-          }
-          tag={item?.tag}
-        />
-      ))}
+      {items.map((item) => {
+        const slugValue = (
+          item?.slug && typeof item.slug === "object" && "current" in item.slug
+            ? item.slug
+            : null
+        ) as { current: string } | null;
+
+        return (
+          <GridItem
+            {...item}
+            isBig={item?.gridDimension?.isBig ?? undefined}
+            key={item._id}
+            publishingDate={item?.publishingDate ?? undefined}
+            slug={
+              slugValue?.current ? `/${basePath}/${slugValue.current}` : "#"
+            }
+          />
+        );
+      })}
     </section>
   );
 }
