@@ -17,6 +17,7 @@ export default async function Page() {
     slug: item.slug.current,
   }));
 
+  /* FIXME links to pages are not working */
   return (
     <>
       <PageHeader position="left" title="Journal" />
