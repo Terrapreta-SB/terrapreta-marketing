@@ -17,7 +17,7 @@ export const researchDoc = defineType({
       title: "Main Image",
       validation: (e) => e.required(),
     }),
- defineField({
+    defineField({
       type: "reference",
       name: "relatedService",
       title: "Related Service",

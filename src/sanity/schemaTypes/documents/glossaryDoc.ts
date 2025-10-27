@@ -28,7 +28,7 @@ export const glossaryDoc = defineType({
     defineField({
       type: "text",
       name: "definition",
-      title: "Definition",  
+      title: "Definition",
     }),
   ],
 });

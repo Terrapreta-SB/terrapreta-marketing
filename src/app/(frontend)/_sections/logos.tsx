@@ -21,21 +21,27 @@ export default async function Logos() {
   const { data: logos } = await sanityFetch({ query: ORGANIZATIONS_QUERY });
 
   const logoItems =
-    logos?.map((logo) => (
-      <div className="flex items-center justify-center px-8" key={logo._id}>
-        <Image
-          alt={logo.name}
-          blurDataURL={urlFor(logo.logoDark).quality(5).auto("format").url()}
-          className="h-12 w-auto object-contain"
-          height={48}
-          placeholder="blur"
-          quality={75}
-          sizes="20vw"
-          src={urlFor(logo.logoDark).quality(75).auto("format").url()}
-          width={120}
-        />
-      </div>
-    )) || [];
+    logos?.map(
+      (logo: {
+        _id: string;
+        name: string;
+        logoDark: { asset: { url: string } };
+      }) => (
+        <div className="flex items-center justify-center px-8" key={logo._id}>
+          <Image
+            alt={logo.name}
+            blurDataURL={urlFor(logo.logoDark).quality(5).auto("format").url()}
+            className="h-12 w-auto object-contain"
+            height={48}
+            placeholder="blur"
+            quality={75}
+            sizes="20vw"
+            src={urlFor(logo.logoDark).quality(75).auto("format").url()}
+            width={120}
+          />
+        </div>
+      )
+    ) || [];
 
   return (
     <div className="container-site flex w-full flex-col items-center justify-center space-y-20">
