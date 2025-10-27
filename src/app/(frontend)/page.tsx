@@ -1,8 +1,8 @@
 import Clients from "./_sections/clients";
+import Context from "./_sections/context";
 import HomeHero from "./_sections/home-hero";
 import Logos from "./_sections/logos";
-import Numbers from "./_sections/numbers";
-
+import Numbers2 from "./_sections/numbers2";
 import PilotProject from "./_sections/pilot-project";
 import Services from "./_sections/services";
 import SoilRevolution from "./_sections/soil-revolution";
@@ -15,8 +15,10 @@ export default function Home() {
       <HomeHero />
       <div className="space-y-30">
         <div className={`${sectionSpacing} pt-10`}>
+          <Numbers2 />
+
           <SoilRevolution />
-          <Numbers />
+          {/* <Numbers /> */}
         </div>
         <div
           className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
@@ -33,6 +35,7 @@ export default function Home() {
         >
           <PilotProject />
         </div>
+        <Context />
         <div
           className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
         >

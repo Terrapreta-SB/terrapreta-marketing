@@ -9,7 +9,7 @@ function NumberCard({ title, description }: NumberCardProps) {
   return (
     <div className="flex aspect-square flex-col justify-between gap-5 rounded-lg border border-stone-800 bg-linear-to-b from-stone-900 to-transparent p-5">
       <h3 className="text-3xl">{title}</h3>
-      <p>{description}</p>
+      <p className="line-clamp-3 h-[4.5rem] text-xl leading-6">{description}</p>
     </div>
   );
 }

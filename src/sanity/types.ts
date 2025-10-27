@@ -66,6 +66,40 @@ export type LinkObject = {
   target?: "_self" | "_blank";
 };
 
+export type Organization = {
+  _id: string;
+  _type: "organization";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  type?: "client" | "partner" | "sponsor";
+  logoDark?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  logoLight?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
 export type Navigation = {
   _id: string;
   _type: "navigation";
@@ -481,8 +515,24 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = HeroSplitModule | Modules | LinkObject | Navigation | Process | Capability | About | Press | Site | Page | Glossary | Journal | Service | Project | Research | TitleSlugObject | ContentObject | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = HeroSplitModule | Modules | LinkObject | Organization | Navigation | Process | Capability | About | Press | Site | Page | Glossary | Journal | Service | Project | Research | TitleSlugObject | ContentObject | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/app/(frontend)/_sections/logos.tsx
+// Variable: ORGANIZATIONS_QUERY
+// Query: *[_type == "organization"]{  _id,  name,  type,  logoDark{    _type,    asset->{      _id,      url,    }  },}
+export type ORGANIZATIONS_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  type: "client" | "partner" | "sponsor" | null;
+  logoDark: {
+    _type: "image";
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+  } | null;
+}>;
+
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PROJECTS_QUERY
 // Query: *[_type == "project" && defined(slug.current)] {  _id,  name,  slug,  shortDescription,  gridDimension{    isBig  },  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  tag->{    _id,    name  }}
@@ -604,6 +654,7 @@ export type SERVICES_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_type == \"organization\"]{\n  _id,\n  name,\n  type,\n  logoDark{\n    _type,\n    asset->{\n      _id,\n      url,\n    }\n  },\n}": ORGANIZATIONS_QUERYResult;
     "*[_type == \"project\" && defined(slug.current)] {\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  tag->{\n    _id,\n    name\n  }\n}": PROJECTS_QUERYResult;
     "*[_type == \"journal\" && defined(slug.current)] | order(publishingDate desc){\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_QUERYResult;
     "*[_type == \"journal\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  location,\n  publishingDate,\n  shortDescription,\n  contentObject,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_ITEM_QUERYResult;

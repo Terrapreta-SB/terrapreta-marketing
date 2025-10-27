@@ -1,14 +1,20 @@
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function PilotProject() {
   return (
-    <div className="container-site flex items-center justify-center">
-      <AspectRatio className="relative w-1/2" ratio={3 / 2}>
-        <div className="absolute inset-0 h-full w-full bg-red-500">div</div>
-      </AspectRatio>
+    <div className="container-site flex h-full items-center justify-center gap-5">
+      <div className="relative h-[50vh] w-1/2 rounded border border-stone-700">
+        <Image
+          alt="Why? Our Soil needs help."
+          className="h-full w-full rounded object-cover object-center"
+          fill
+          quality={75}
+          src="https://cdn.sanity.io/images/wj2okvbq/production/bf5359dbaaabe2a723a66fd982db42a7196a52af-2400x1600.webp"
+        />
+      </div>
 
-      <div className="w-1/2">
+      <div className="h-full w-1/2">
         <hgroup className="">
           <h2 className="text-3xl">Osservatorio La Goccia</h2>
           <p>Il nostro progetto pilota</p>

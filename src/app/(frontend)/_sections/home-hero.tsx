@@ -11,7 +11,7 @@ export default function HomeHero() {
         <div className="z-10 flex flex-col items-center justify-center gap-8">
           <hgroup className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-4 text-center">
             <h1 className="text-balance font-bold text-6xl">
-              Regenerating ecosystems from the soil up.
+              Regenerating ecosystems from the <em>Soil Up</em>.
             </h1>
             <p className="text-pretty text-2xl">
               Growing equitable places for nature, people and climate.

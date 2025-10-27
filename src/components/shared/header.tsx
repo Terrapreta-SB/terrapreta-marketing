@@ -50,7 +50,9 @@ export default function Header() {
   return (
     <div
       className={`fixed top-0 right-0 left-0 z-50 flex items-center justify-center py-4 transition-all duration-100 ${
-        isScrolled ? "border-stone-800 border-b bg-stone-950" : "bg-transparent"
+        isScrolled
+          ? "border-stone-800 border-b bg-stone-950"
+          : "bg-stone-950/20"
       }`}
     >
       <header className="container-site z-20 flex w-full items-center justify-between">

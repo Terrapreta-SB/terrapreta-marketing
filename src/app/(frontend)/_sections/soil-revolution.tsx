@@ -1,5 +1,6 @@
 import Image, { type StaticImageData } from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import TagTitle from "@/components/ui/tag-title";
 import heroImage from "@/public/images/terrapreta_hero.webp";
 
 type SoilCardProps = {
@@ -27,10 +28,16 @@ function SoilCard({ title, image }: SoilCardProps) {
 export default function SoilRevolution() {
   return (
     <div
-      className="container-site mx-auto flex w-full scroll-mt-16 flex-col items-start gap-10"
+      className="container-site flex flex-col items-start gap-10"
       id="soil-revolution"
     >
-      <h2 className="text-3xl">Leading the soil revolution</h2>
+      <hgroup className="flex h-full flex-col justify-between gap-2">
+        <TagTitle tag="How" title="Leading the Soil revolution" />
+        <p className="w-1/2 text-stone-300 text-xl">
+          We are innovators, architects, engeeners and scientists who are
+          leading the Soil revolution.
+        </p>
+      </hgroup>
       <div className="grid w-full grid-cols-3 gap-5">
         <SoilCard
           image={heroImage}

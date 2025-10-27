@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import TagTitle from "@/components/ui/tag-title";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SERVICES_QUERY } from "@/sanity/lib/queries";
@@ -110,17 +111,11 @@ export default async function Services() {
 
   return (
     <div className="container-site flex flex-col items-start justify-center gap-10">
-      <hgroup className="grid w-full grid-cols-2 items-baseline">
-        <h2 className="text-3xl">Soil-based Solutions for a brighter future</h2>
-        <div className="space-y-5">
-          <p className="text-balance text-xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quos.
-          </p>
-          <Button asChild variant="default">
-            <Link href="/discovery-call">Book a Discovery Call</Link>
-          </Button>
-        </div>
+      <hgroup className="flex flex-col gap-5">
+        <TagTitle tag="Services" title="Soil-based Solutions" />
+        <Button asChild className="w-fit" variant="default">
+          <Link href="/discovery-call">Book a Discovery Call</Link>
+        </Button>
       </hgroup>
       <div className="grid w-full grid-cols-3 gap-5">
         {services?.map((service) => (
