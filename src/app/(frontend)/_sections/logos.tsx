@@ -3,6 +3,7 @@ import Image from "next/image";
 import { defineQuery } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
+import type { ORGANIZATIONS_QUERYResult } from "@/sanity/types";
 
 const ORGANIZATIONS_QUERY = defineQuery(`*[_type == "organization"]{
   _id,
@@ -21,12 +22,21 @@ export default async function Logos() {
   const { data: logos } = await sanityFetch({ query: ORGANIZATIONS_QUERY });
 
   const logoItems =
-    logos?.map(
-      (logo: {
-        _id: string;
-        name: string;
-        logoDark: { asset: { url: string } };
-      }) => (
+    logos
+      ?.filter(
+        (
+          logo
+        ): logo is ORGANIZATIONS_QUERYResult[number] & {
+          name: string;
+          logoDark: { asset: { url: string } };
+        } =>
+          Boolean(
+            logo.name &&
+              logo.logoDark?.asset?.url &&
+              logo.logoDark.asset.url !== null
+          )
+      )
+      .map((logo) => (
         <div className="flex items-center justify-center px-8" key={logo._id}>
           <Image
             alt={logo.name}
@@ -40,8 +50,7 @@ export default async function Logos() {
             width={120}
           />
         </div>
-      )
-    ) || [];
+      )) || [];
 
   return (
     <div className="container-site flex w-full flex-col items-center justify-center space-y-20">

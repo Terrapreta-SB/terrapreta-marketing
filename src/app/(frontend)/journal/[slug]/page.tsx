@@ -30,7 +30,7 @@ export default async function Page({
     params: await params,
   });
 
-  if (!journalItem) {
+  if (!journalItem?.mainImage?.image) {
     notFound();
   }
 
@@ -82,19 +82,23 @@ export default async function Page({
           <li>{journalItem?.location}</li>
           <Minus size={16} />
           <li>
-            {new Date(journalItem?.publishingDate).toLocaleDateString(
-              undefined,
-              {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              }
-            )}
+            {journalItem?.publishingDate
+              ? new Date(journalItem.publishingDate).toLocaleDateString(
+                  undefined,
+                  {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  }
+                )
+              : ""}
           </li>
         </ul>
-        <section className="space-y-7.5 text-pretty text-2xl">
-          <PortableText value={journalItem?.contentObject} />
-        </section>
+        {journalItem?.contentObject && (
+          <section className="space-y-7.5 text-pretty text-2xl">
+            <PortableText value={journalItem.contentObject} />
+          </section>
+        )}
       </div>
 
       <SocialShare />

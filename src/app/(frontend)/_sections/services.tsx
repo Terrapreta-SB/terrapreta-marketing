@@ -14,6 +14,7 @@ import TagTitle from "@/components/ui/tag-title";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SERVICES_QUERY } from "@/sanity/lib/queries";
+import type { SERVICES_QUERYResult } from "@/sanity/types";
 
 type ServiceCardProps = {
   name: string;
@@ -113,9 +114,30 @@ export default async function Services() {
         </Button>
       </hgroup>
       <div className="grid w-full grid-cols-3 gap-5">
-        {services?.map((service: ServiceCardProps) => (
-          <ServiceCard key={service.name} {...service} />
-        ))}
+        {services
+          ?.filter(
+            (
+              service
+            ): service is SERVICES_QUERYResult[number] & {
+              name: string;
+              slug: { current: string };
+              mainImage: { image: { asset: { url: string } } };
+            } =>
+              Boolean(
+                service.name &&
+                  service.slug?.current &&
+                  service.mainImage?.image?.asset?.url
+              )
+          )
+          .map((service) => (
+            <ServiceCard
+              key={service.name}
+              mainImage={service.mainImage}
+              name={service.name}
+              shortDescription={service.shortDescription || ""}
+              slug={service.slug.current}
+            />
+          ))}
       </div>
     </div>
   );
