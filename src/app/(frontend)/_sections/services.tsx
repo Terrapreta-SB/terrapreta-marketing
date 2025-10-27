@@ -28,12 +28,7 @@ type ServiceCardProps = {
   slug: string;
 };
 
-function ServiceCard({
-  name,
-  mainImage,
-  shortDescription,
-  slug,
-}: ServiceCardProps) {
+function ServiceCard({ name, mainImage, shortDescription }: ServiceCardProps) {
   return (
     <div className="relative flex aspect-square w-full grid-cols-3 items-end gap-5 rounded bg-gray-600 p-7.5">
       <div className="absolute inset-0 z-1 h-full w-full bg-stone-950/20" />
@@ -60,7 +55,7 @@ function ServiceCard({
               <Plus />
             </Button>
           </DialogTrigger>
-          <DialogContent className="container-article !p-0">
+          <DialogContent className="container-article p-0!">
             <DialogHeader>
               <div className="space-y-10">
                 <AspectRatio ratio={3 / 2}>
@@ -94,7 +89,7 @@ function ServiceCard({
             </div>
             <div className="px-10 py-10">
               <Button>
-                <Link href={`/services/${slug?.current}`}>Discover more</Link>
+                <Link href={"/services"}>Discover more</Link>
               </Button>
             </div>
           </DialogContent>
@@ -118,7 +113,7 @@ export default async function Services() {
         </Button>
       </hgroup>
       <div className="grid w-full grid-cols-3 gap-5">
-        {services?.map((service) => (
+        {services?.map((service: ServiceCardProps) => (
           <ServiceCard key={service.name} {...service} />
         ))}
       </div>
