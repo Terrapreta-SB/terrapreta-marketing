@@ -65,23 +65,25 @@ export default async function Page({
         <hgroup className="flex h-full w-full items-center justify-center gap-5 text-balance bg-linear-to-r from-stone-800 to-transparent">
           <div className="relative h-full w-1/2" />
           <div className="relative h-full w-1/2">
-            <Image
-              alt={service?.name || ""}
-              blurDataURL={urlFor(service?.mainImage?.image)
-                .width(24)
-                .height(24)
-                .quality(5)
-                .auto("format")
-                .url()}
-              className="z-0 h-full w-full object-cover object-center"
-              fill
-              placeholder="blur"
-              quality={75}
-              src={urlFor(service?.mainImage?.image)
-                .quality(75)
-                .auto("format")
-                .url()}
-            />
+            {service?.mainImage?.image && (
+              <Image
+                alt={service?.name || ""}
+                blurDataURL={urlFor(service.mainImage.image)
+                  .width(24)
+                  .height(24)
+                  .quality(5)
+                  .auto("format")
+                  .url()}
+                className="z-0 h-full w-full object-cover object-center"
+                fill
+                placeholder="blur"
+                quality={75}
+                src={urlFor(service.mainImage.image)
+                  .quality(75)
+                  .auto("format")
+                  .url()}
+              />
+            )}
           </div>
         </hgroup>
       </div>
