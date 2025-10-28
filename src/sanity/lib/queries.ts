@@ -99,3 +99,32 @@ export const SERVICES_QUERY =
     }
   }
 }`);
+
+export const SERVICE_QUERY =
+  defineQuery(`*[_type == "service" && slug.current == $slug][0]{
+  _id,
+  name,
+  slug,
+  shortDescription,
+  content,
+  capabilities[]->{
+    _id,
+    name
+  },
+  clients[]->{
+    _id,
+    name,
+    logoDark{
+      asset->{
+        url
+      }
+    }
+  },
+  mainImage{
+    image{
+      asset->{
+        url
+      }
+    }
+  }
+}`);

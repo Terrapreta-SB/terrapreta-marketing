@@ -5,13 +5,26 @@ import { Badge } from "@/components/ui/badge";
 import { urlFor } from "@/sanity/lib/image";
 import type { JOURNAL_QUERYResult, PROJECTS_QUERYResult } from "@/sanity/types";
 
-type GridItemProps = Omit<
-  JOURNAL_QUERYResult[0] | PROJECTS_QUERYResult[0],
-  "slug"
+type GridItemProps = Partial<
+  Omit<JOURNAL_QUERYResult[0] | PROJECTS_QUERYResult[0], "slug">
 > & {
+  _id: string;
+  name: string | null;
+  shortDescription: string | null;
+  mainImage: {
+    _type: "imageObject";
+    image: {
+      _type: "image";
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+    } | null;
+  } | null;
   isBig?: boolean;
   publishingDate?: string | null;
   slug: string;
+  tag?: { _id: string; name: string | null } | null;
 };
 
 const BLUR_QUALITY = 5;

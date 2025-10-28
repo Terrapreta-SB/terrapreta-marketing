@@ -35,6 +35,17 @@ export const serviceDoc = defineType({
     }),
     defineField({
       type: "array",
+      name: "clients",
+      title: "Clients",
+      of: [
+        defineArrayMember({
+          type: "reference",
+          to: [{ type: "organization" }],
+        }),
+      ],
+    }),
+    defineField({
+      type: "array",
       name: "capabilities",
       title: "Capabilities",
       description: `You can select up to ${MAX_CAPABILITIES} capabilities`,
@@ -44,21 +55,35 @@ export const serviceDoc = defineType({
       validation: (e) => e.max(MAX_CAPABILITIES),
     }),
     defineField({
-      type: "contentObject",
-      name: "pageContent",
-      title: "Page Content",
+      type: "array",
+      name: "content",
+      title: "Content",
+      of: [
+        defineArrayMember({ type: "block" }),
+        defineArrayMember({ type: "imageObject" }),
+      ],
     }),
     defineField({
-      type: "reference",
+      type: "array",
       name: "relatedProject",
       title: "Related Project",
-      to: [{ type: "project" }],
+      of: [
+        defineArrayMember({
+          type: "reference",
+          to: [{ type: "project" }],
+        }),
+      ],
     }),
     defineField({
-      type: "reference",
+      type: "array",
       name: "relatedResearch",
       title: "Related Research",
-      to: [{ type: "research" }],
+      of: [
+        defineArrayMember({
+          type: "reference",
+          to: [{ type: "research" }],
+        }),
+      ],
     }),
   ],
 });
