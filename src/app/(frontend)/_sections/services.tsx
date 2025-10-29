@@ -107,12 +107,21 @@ export default async function Services() {
 
   return (
     <div className="container-site flex flex-col items-start justify-center gap-10">
-      <hgroup className="flex flex-col gap-5">
+      <hgroup className="flex w-full flex-col gap-5">
         <TagTitle tag="Services" title="Soil-based Solutions" />
-        <Button asChild className="w-fit" variant="default">
-          <Link href="/discovery-call">Book a Discovery Call</Link>
-        </Button>
+        <div className="grid w-full grid-cols-3 gap-5">
+          <p className="col-span-2 text-balance text-stone-300 text-xl">
+            We pioneer ecological restoration providing full-service design and
+            consultancy, helping public and private clients realize complex,
+            innovative projects. Our research-driven approach empowers us to
+            deliver transformative solutions at any scale.
+          </p>
+          <Button asChild className="w-fit justify-self-end" variant="default">
+            <Link href="/discovery-call">Book a Discovery Call</Link>
+          </Button>
+        </div>
       </hgroup>
+
       <div className="grid w-full grid-cols-3 gap-5">
         {services
           ?.filter(
