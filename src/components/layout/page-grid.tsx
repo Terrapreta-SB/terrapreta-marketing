@@ -3,7 +3,11 @@ import Link from "next/link";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { urlFor } from "@/sanity/lib/image";
-import type { JOURNAL_QUERYResult, PROJECTS_QUERYResult } from "@/sanity/types";
+import type {
+  JOURNAL_QUERYResult,
+  PROJECTS_QUERYResult,
+  Slug,
+} from "@/sanity/types";
 
 type GridItemProps = Partial<
   Omit<JOURNAL_QUERYResult[0] | PROJECTS_QUERYResult[0], "slug">
@@ -25,6 +29,10 @@ type GridItemProps = Partial<
   publishingDate?: string | null;
   slug: string;
   tag?: { _id: string; name: string | null } | null;
+};
+
+type GridItemInput = Omit<GridItemProps, "slug"> & {
+  slug: Slug | null | string;
 };
 
 const BLUR_QUALITY = 5;
@@ -97,17 +105,20 @@ export default function PageGrid({
   items,
   basePath,
 }: {
-  items: GridItemProps[];
+  items: GridItemInput[];
   basePath: string;
 }) {
   return (
     <section className="container-site mx-auto grid w-full grid-cols-3 gap-x-5 gap-y-15 pb-40">
       {items.map((item) => {
-        const slugValue = (
-          item?.slug && typeof item.slug === "object" && "current" in item.slug
-            ? item.slug
-            : null
-        ) as { current: string } | null;
+        let slugValue: string | null = null;
+        if (item.slug) {
+          if (typeof item.slug === "object" && "current" in item.slug) {
+            slugValue = item.slug.current || null;
+          } else if (typeof item.slug === "string") {
+            slugValue = item.slug;
+          }
+        }
 
         return (
           <GridItem
@@ -115,9 +126,7 @@ export default function PageGrid({
             isBig={item?.gridDimension?.isBig ?? undefined}
             key={item._id}
             publishingDate={item?.publishingDate ?? undefined}
-            slug={
-              slugValue?.current ? `/${basePath}/${slugValue.current}` : "#"
-            }
+            slug={slugValue ? `/${basePath}/${slugValue}` : "#"}
           />
         );
       })}
