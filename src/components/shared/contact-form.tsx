@@ -35,7 +35,7 @@ export default function ContactForm() {
           src={urlFor(contactFormImage).quality(75).auto("format").url()}
         />
       </AspectRatio>
-      <form className="w-full" data-netlify="true" method="POST" name="contact">
+      <form className="w-full" method="POST" name="contact">
         <FieldSet>
           <FieldLegend>Contact Us</FieldLegend>
           <FieldDescription>We are here to help you.</FieldDescription>

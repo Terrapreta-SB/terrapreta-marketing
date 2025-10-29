@@ -30,37 +30,6 @@ export default async function Page({
               <Link href="/discovery-call">Book a Discovery Call</Link>
             </Button>
           </div>
-
-          {/*    <div className="relative bottom-0 left-0 flex flex-col items-start justify-center py-20">
-            <h3>ORGANIZATIONS WE WORK WITH</h3>
-            <div className="flex flex-row items-center justify-center gap-5">
-              {service?.clients?.map(
-                (client: {
-                  _id: string;
-                  name: string;
-                  logoDark: { asset: { url: string } };
-                }) => (
-                  <div key={client._id}>
-                    <Image
-                      alt={client.name || ""}
-                      blurDataURL={urlFor(client.logoDark)
-                        .width(24)
-                        .height(24)
-                        .quality(5)
-                        .auto("format")
-                        .url()}
-                      height={100}
-                      src={urlFor(client.logoDark)
-                        .quality(75)
-                        .auto("format")
-                        .url()}
-                      width={100}
-                    />
-                  </div>
-                )
-              )}
-            </div>
-          </div> */}
         </div>
         <hgroup className="flex h-full w-full items-center justify-center gap-5 text-balance bg-linear-to-r from-stone-800 to-transparent">
           <div className="relative h-full w-1/2" />
@@ -88,10 +57,49 @@ export default async function Page({
         </hgroup>
       </div>
 
-      <article className="container-article">
-        <div className="flex flex-col items-start justify-center space-y-5 py-20">
-          <h3 className="font-bold text-2xl">Our Capabilities</h3>
-          <div className="flex flex-row items-center justify-center gap-5">
+      <article className="container-article space-y-20 py-20">
+        {/* Clients */}
+        {service?.clients && (
+          <div className="flex flex-col items-start justify-center">
+            <h3 className="text-2xl">Our Clients</h3>
+            <div className="flex flex-row items-center justify-center gap-5">
+              {service?.clients
+                ?.filter(
+                  (
+                    client
+                  ): client is {
+                    _id: string;
+                    name: string;
+                    logoDark: { asset: { url: string } };
+                  } => Boolean(client.name && client.logoDark?.asset?.url)
+                )
+                .map((client) => {
+                  const logoImage = client.logoDark.asset;
+                  return (
+                    <div key={client._id}>
+                      <Image
+                        alt={client.name}
+                        blurDataURL={urlFor(logoImage)
+                          .width(24)
+                          .height(24)
+                          .quality(5)
+                          .auto("format")
+                          .url()}
+                        height={100}
+                        src={urlFor(logoImage).quality(75).auto("format").url()}
+                        width={100}
+                      />
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        )}
+
+        {/* Capabilities */}
+        <div className="flex flex-col items-start justify-center space-y-5">
+          <h3 className="text-2xl">Our Capabilities</h3>
+          <div className="flex flex-row flex-wrap items-start justify-start gap-x-2.5 gap-y-3">
             {service?.capabilities
               ?.filter(
                 (capability): capability is { _id: string; name: string } =>
@@ -99,7 +107,7 @@ export default async function Page({
               )
               .map((capability) => (
                 <div
-                  className="rounded-full bg-stone-700 px-5 py-2"
+                  className="rounded-full border border-stone-400 px-3 py-1.5"
                   key={capability._id}
                 >
                   {capability.name}
@@ -108,7 +116,7 @@ export default async function Page({
           </div>
         </div>
 
-        <div className="flex flex-col items-start justify-center space-y-5 py-20 text-2xl">
+        <div className="flex flex-col items-start justify-center space-y-5 text-2xl">
           {service?.content && <PortableText value={service.content} />}
         </div>
       </article>
