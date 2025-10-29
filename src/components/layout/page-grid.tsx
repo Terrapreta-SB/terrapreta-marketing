@@ -78,23 +78,25 @@ function GridItem({
         />
       </AspectRatio>
       <hgroup className="space-y-2">
-        <span className="flex items-center gap-2.5">
-          <Badge variant="secondary">{tag?.name}</Badge>
-          {publishingDate && (
-            <time
-              className="text-muted-foreground text-sm"
-              dateTime={publishingDate}
-            >
-              {publishingDate
-                ? new Date(publishingDate).toLocaleDateString(undefined, {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })
-                : ""}
-            </time>
-          )}
-        </span>
+        {(tag?.name || publishingDate) && (
+          <span className="flex items-center gap-2.5">
+            {tag?.name && <Badge variant="secondary">{tag?.name}</Badge>}
+            {publishingDate && (
+              <time
+                className="text-muted-foreground text-sm"
+                dateTime={publishingDate}
+              >
+                {publishingDate
+                  ? new Date(publishingDate).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
+                  : ""}
+              </time>
+            )}
+          </span>
+        )}
         <h2 className="text-xl">{name}</h2>
       </hgroup>
     </Link>
