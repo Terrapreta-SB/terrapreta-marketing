@@ -92,21 +92,24 @@ export default async function Page({
         <div className="flex flex-col items-start justify-center space-y-5 py-20">
           <h3 className="font-bold text-2xl">Our Capabilities</h3>
           <div className="flex flex-row items-center justify-center gap-5">
-            {service?.capabilities?.map(
-              (capability: { _id: string; name: string }) => (
+            {service?.capabilities
+              ?.filter(
+                (capability): capability is { _id: string; name: string } =>
+                  Boolean(capability.name)
+              )
+              .map((capability) => (
                 <div
                   className="rounded-full bg-stone-700 px-5 py-2"
                   key={capability._id}
                 >
                   {capability.name}
                 </div>
-              )
-            )}
+              ))}
           </div>
         </div>
 
         <div className="flex flex-col items-start justify-center space-y-5 py-20 text-2xl">
-          <PortableText value={service?.content} />
+          {service?.content && <PortableText value={service.content} />}
         </div>
       </article>
     </>

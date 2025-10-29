@@ -10,11 +10,11 @@ export type NavigationGroup = {
 };
 
 export const navigationData: NavigationItem[] = [
-  {
+  /*   {
     label: "Projects",
     href: "/projects",
     description: "Our work and initiatives",
-  },
+  }, */
   {
     label: "Services",
     href: "/services",
@@ -25,11 +25,11 @@ export const navigationData: NavigationItem[] = [
     href: "/journal",
     description: "Latest updates and insights",
   },
-  {
+  /*   {
     label: "About",
     href: "/about",
     description: "Learn about our mission",
-  },
+  }, */
 ];
 
 export const navigationGroups: NavigationGroup[] = [
@@ -76,9 +76,8 @@ export const navigationGroups: NavigationGroup[] = [
 ];
 
 // Helper functions
-export const getNavigationItem = (href: string): NavigationItem | undefined => {
-  return navigationData.find((item) => item.href === href);
-};
+export const getNavigationItem = (href: string): NavigationItem | undefined =>
+  navigationData.find((item) => item.href === href);
 
 export const isActivePath = (currentPath: string, href: string): boolean => {
   if (href === "/") {

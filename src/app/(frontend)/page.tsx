@@ -1,3 +1,4 @@
+import ContactForm from "@/components/shared/contact-form";
 import Clients from "./_sections/clients";
 import Context from "./_sections/context";
 import HomeHero from "./_sections/home-hero";
@@ -16,9 +17,11 @@ export default function Home() {
       <div className="space-y-30">
         <div className={`${sectionSpacing} pt-10`}>
           <Numbers2 />
-
+        </div>
+        <div
+          className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
+        >
           <SoilRevolution />
-          {/* <Numbers /> */}
         </div>
         <div
           className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
@@ -40,6 +43,7 @@ export default function Home() {
           className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
         >
           <Logos />
+          <ContactForm />
         </div>
       </div>
     </>

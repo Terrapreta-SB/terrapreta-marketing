@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import TagTitle from "@/components/ui/tag-title";
+import { urlFor } from "@/sanity/lib/image";
 
 type NumberCardProps = {
   title: string;
   description: string;
+  image: string;
 };
 
-function NumberCard({ title, description }: NumberCardProps) {
+function NumberCard({ title, description, image }: NumberCardProps) {
   return (
     <div className="flex flex-col justify-start rounded-lg border border-stone-700">
       <div className="relative">
@@ -15,10 +17,17 @@ function NumberCard({ title, description }: NumberCardProps) {
         <AspectRatio className="relative w-full rounded" ratio={3 / 2}>
           <Image
             alt="Why? Our Soil needs help."
+            blurDataURL={urlFor(image)
+              .width(24)
+              .height(24)
+              .quality(5)
+              .auto("format")
+              .url()}
             className="h-full w-full rounded object-cover object-center"
             fill
+            placeholder="blur"
             quality={75}
-            src="https://cdn.sanity.io/images/wj2okvbq/production/bf5359dbaaabe2a723a66fd982db42a7196a52af-2400x1600.webp"
+            src={urlFor(image).quality(75).auto("format").url()}
           />
         </AspectRatio>
       </div>
@@ -43,14 +52,17 @@ export default function Numbers2() {
       <div className="grid grid-cols-3 gap-5">
         <NumberCard
           description="Of contaminated sites to be recoverd, only in the EU."
+          image="https://cdn.sanity.io/images/wj2okvbq/production/05956bbe8b5b11c2c1fec5a7cd315971cfcc509b-1500x1125.webp"
           title="3 million"
         />
         <NumberCard
           description="Percentage of degraded soils in the EU."
+          image="https://cdn.sanity.io/images/wj2okvbq/production/73f468c87925b92b5c0140bdab8125267f4b6bb2-1500x1186.webp"
           title="Over 60%"
         />
         <NumberCard
           description="The loss of ecosystem benefits cause by soil degradetion."
+          image="https://cdn.sanity.io/images/wj2okvbq/production/90180c6a849b692f747bac16dd81abffbda0c52a-2000x1500.webp"
           title="€50 bn/year"
         />
         {/*     <NumberCard
