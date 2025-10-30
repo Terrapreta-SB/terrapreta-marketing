@@ -29,7 +29,12 @@ type ServiceCardProps = {
   slug: string;
 };
 
-function ServiceCard({ name, mainImage, shortDescription }: ServiceCardProps) {
+function ServiceCard({
+  name,
+  mainImage,
+  shortDescription,
+  slug,
+}: ServiceCardProps) {
   return (
     <div className="relative flex aspect-square w-full grid-cols-3 items-end gap-5 rounded bg-gray-600 p-7.5">
       <div className="absolute inset-0 z-1 h-full w-full bg-stone-950/20" />
@@ -90,7 +95,7 @@ function ServiceCard({ name, mainImage, shortDescription }: ServiceCardProps) {
             </div>
             <div className="px-10 py-10">
               <Button>
-                <Link href={"/services"}>Discover more</Link>
+                <Link href={`/services/${slug}`}>Discover more</Link>
               </Button>
             </div>
           </DialogContent>
