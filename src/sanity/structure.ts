@@ -1,6 +1,7 @@
 import {
   Building,
   FileStack,
+  Flag,
   GraduationCap,
   Hammer,
   HeartHandshake,
@@ -54,9 +55,13 @@ export const structure = structureTool({
             .title("Capabilities")
             .icon(GraduationCap),
           S.documentTypeListItem("process").title("Processes").icon(Route),
+
           S.documentTypeListItem("organization")
             .title("Organizations")
             .icon(Building),
+          S.documentTypeListItem("unGoal")
+            .title("United Nations Goals")
+            .icon(Flag),
         ]),
         S.divider(),
 

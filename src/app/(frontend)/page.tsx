@@ -1,50 +1,62 @@
 import ContactForm from "@/components/shared/contact-form";
+import { cn } from "@/lib/utils";
 import Clients from "./_sections/clients";
 import Context from "./_sections/context";
 import HomeHero from "./_sections/home-hero";
 import Logos from "./_sections/logos";
-import Numbers2 from "./_sections/numbers2";
+import Numbers from "./_sections/numbers";
 import PilotProject from "./_sections/pilot-project";
 import Services from "./_sections/services";
 import SoilRevolution from "./_sections/soil-revolution";
 
-const sectionSpacing = "space-y-60";
+type SectionWrapperProps = {
+  children: React.ReactNode;
+  isFirstItem?: boolean;
+};
+
+function SectionWrapper({
+  children,
+  isFirstItem = false,
+}: SectionWrapperProps) {
+  return (
+    <div
+      className={cn(
+        isFirstItem ? "pt-10 pb-30" : "py-30",
+        "space-y-60 bg-linear-to-b from-stone-900 to-transparent"
+      )}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <>
       <HomeHero />
-      <div className="space-y-30">
-        <div className={`${sectionSpacing} pt-10`}>
-          <Numbers2 />
-        </div>
-        <div
-          className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
-        >
+      <div className="scroll-mt-16 space-y-0" id="learn-more">
+        <SectionWrapper isFirstItem>
+          <Numbers />
+        </SectionWrapper>
+        <SectionWrapper>
           <SoilRevolution />
-        </div>
-        <div
-          className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
-        >
+        </SectionWrapper>
+        <SectionWrapper>
           <Services />
-        </div>
-        <div
-          className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
-        >
+        </SectionWrapper>
+        <SectionWrapper>
+          <Context />
+        </SectionWrapper>
+        <SectionWrapper>
           <Clients />
-        </div>
-        <div
-          className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
-        >
+        </SectionWrapper>
+        <SectionWrapper>
           <PilotProject />
-        </div>
-        <Context />
-        <div
-          className={`${sectionSpacing} bg-linear-to-b from-stone-900 to-transparent py-30`}
-        >
+        </SectionWrapper>
+        <SectionWrapper>
           <Logos />
           <ContactForm />
-        </div>
+        </SectionWrapper>
       </div>
     </>
   );

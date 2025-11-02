@@ -21,7 +21,7 @@ export default function HomeHero() {
             </p>
           </hgroup>
           <Button asChild variant={"brand"}>
-            <Link href="#soil-revolution">Learn More</Link>
+            <Link href="#learn-more">Learn More</Link>
           </Button>
         </div>
         <div className="absolute right-0 bottom-0 left-0 z-10 flex animate-bounce flex-col items-center justify-center gap-2.5 pb-5">

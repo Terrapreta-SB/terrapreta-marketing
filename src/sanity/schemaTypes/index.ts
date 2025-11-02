@@ -14,6 +14,7 @@ import { researchDoc } from "./documents/researchDoc";
 import { serviceDoc } from "./documents/serviceDoc";
 import { siteDoc } from "./documents/siteDoc";
 import { tagDoc } from "./documents/tagDoc";
+import { unGoalDoc } from "./documents/unGoalDoc";
 
 /* Fragments */
 import modules from "./fragments/modules";
@@ -43,6 +44,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     processDoc,
     navigationDoc,
     organizationDoc,
+    unGoalDoc,
 
     /* Objects */
     titleSlugObject,

@@ -27,10 +27,7 @@ function SoilCard({ title, image }: SoilCardProps) {
 
 export default function SoilRevolution() {
   return (
-    <div
-      className="container-site flex flex-col items-start gap-10"
-      id="soil-revolution"
-    >
+    <div className="container-site flex flex-col items-start gap-10">
       <hgroup className="flex h-full flex-col justify-between gap-2">
         <TagTitle tag="How" title="Leading the Soil revolution" />
         <p className="w-1/2 text-stone-300 text-xl">

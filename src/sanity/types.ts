@@ -66,6 +66,39 @@ export type LinkObject = {
   target?: "_self" | "_blank";
 };
 
+export type UnGoal = {
+  _id: string;
+  _type: "unGoal";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  logoPositive?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  logoNegative?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
 export type Organization = {
   _id: string;
   _type: "organization";
@@ -543,7 +576,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = HeroSplitModule | Modules | LinkObject | Organization | Navigation | Process | Capability | About | Press | Site | Page | Glossary | Journal | Project | Research | TitleSlugObject | ContentObject | Service | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = HeroSplitModule | Modules | LinkObject | UnGoal | Organization | Navigation | Process | Capability | About | Press | Site | Page | Glossary | Journal | Project | Research | TitleSlugObject | ContentObject | Service | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/app/(frontend)/_sections/logos.tsx
 // Variable: ORGANIZATIONS_QUERY
@@ -725,6 +758,26 @@ export type SERVICE_QUERYResult = {
     } | null;
   } | null;
 } | null;
+// Variable: UN_GOALS_QUERY
+// Query: *[_type == "unGoal"] | order(name asc){  _id,  name,  logoNegative{    _type,    asset->{      _id,      url    }  },  logoPositive{    _type,    asset->{      _id,      url    }  }}
+export type UN_GOALS_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  logoNegative: {
+    _type: "image";
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+  } | null;
+  logoPositive: {
+    _type: "image";
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+  } | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -737,5 +790,6 @@ declare module "@sanity/client" {
     "*[_type == \"tag\"] | order(name asc){\n  _id,\n  name,\n  slug\n}": TAGS_QUERYResult;
     "*[_type == \"service\" && defined(slug.current)] | order(name asc){\n  _id,\n  name,\n  slug,\n  shortDescription,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n}": SERVICES_QUERYResult;
     "*[_type == \"service\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  shortDescription,\n  content,\n  capabilities[]->{\n    _id,\n    name\n  },\n  clients[]->{\n    _id,\n    name,\n    logoDark{\n      asset->{\n        url\n      }\n    }\n  },\n  mainImage{\n    image{\n      asset->{\n        url\n      }\n    }\n  }\n}": SERVICE_QUERYResult;
+    "*[_type == \"unGoal\"] | order(name asc){\n  _id,\n  name,\n  logoNegative{\n    _type,\n    asset->{\n      _id,\n      url\n    }\n  },\n  logoPositive{\n    _type,\n    asset->{\n      _id,\n      url\n    }\n  }\n}": UN_GOALS_QUERYResult;
   }
 }

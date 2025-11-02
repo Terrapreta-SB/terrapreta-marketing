@@ -1,8 +1,52 @@
+import Image from "next/image";
 import Link from "next/link";
-import Mark from "../brand/mark";
-import { Button } from "../ui/button";
+import Mark from "@/components/brand/mark";
+import { Button } from "@/components/ui/button";
+import { urlFor } from "@/sanity/lib/image";
+import { sanityFetch } from "@/sanity/lib/live";
+import { UN_GOALS_QUERY } from "@/sanity/lib/queries";
+import type { UN_GOALS_QUERYResult } from "@/sanity/types";
 
-export default function Footer() {
+export default async function Footer() {
+  const { data: unGoals } = await sanityFetch({ query: UN_GOALS_QUERY });
+
+  const unGoalLogos =
+    unGoals
+      ?.filter(
+        (
+          goal
+        ): goal is UN_GOALS_QUERYResult[number] & {
+          logoNegative: { asset: { url: string } };
+        } =>
+          Boolean(
+            goal.logoNegative?.asset?.url &&
+              goal.logoNegative.asset.url !== null
+          )
+      )
+      .map((goal) => (
+        <Image
+          alt={goal.name || "UN Goal"}
+          blurDataURL={urlFor(goal.logoNegative)
+            .quality(5)
+            .width(24)
+            .height(24)
+            .auto("format")
+            .url()}
+          className="h-18 w-auto object-contain"
+          height={144}
+          key={goal._id}
+          placeholder="blur"
+          quality={75}
+          sizes="20vw"
+          src={urlFor(goal.logoNegative)
+            .width(144)
+            .height(144)
+            .quality(75)
+            .auto("format")
+            .url()}
+          width={160}
+        />
+      )) || [];
   return (
     <div className="flex w-full justify-center border-stone-800 border-t">
       <footer className="container-site flex flex-col justify-start gap-10 py-20">
@@ -16,8 +60,13 @@ export default function Footer() {
                 Our mission is to regenerate one million hectares of land by
                 2031 via Soil-based Solutions.
               </p>
-              <Button className="w-fit" variant="outline">
-                Let's talk
+              {unGoalLogos.length > 0 && (
+                <div className="flex flex-wrap items-center gap-4">
+                  {unGoalLogos}
+                </div>
+              )}
+              <Button asChild className="w-fit" variant="outline">
+                <Link href="/contacts">Let's talk</Link>
               </Button>
             </div>
           </div>
@@ -42,13 +91,40 @@ export default function Footer() {
             <h3 className="text-stone-400">Follow us</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="">LinkedIn</Link>
+                <a
+                  href="https://www.linkedin.com/company/terrapreta-it/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  LinkedIn
+                </a>
               </li>
               <li>
-                <Link href="">Instagram</Link>
+                <a
+                  href="https://www.instagram.com/terrapreta_it/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Instagram
+                </a>
               </li>
               <li>
-                <Link href="">Email</Link>
+                <a
+                  href="https://www.are.na/terrapreta"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Are.na
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:mail@terrapreta.com"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Email
+                </a>
               </li>
             </ul>
           </div>

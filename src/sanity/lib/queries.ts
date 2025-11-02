@@ -128,3 +128,23 @@ export const SERVICE_QUERY =
     }
   }
 }`);
+
+export const UN_GOALS_QUERY =
+  defineQuery(`*[_type == "unGoal"] | order(name asc){
+  _id,
+  name,
+  logoNegative{
+    _type,
+    asset->{
+      _id,
+      url
+    }
+  },
+  logoPositive{
+    _type,
+    asset->{
+      _id,
+      url
+    }
+  }
+}`);
