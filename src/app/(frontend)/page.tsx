@@ -1,7 +1,7 @@
 import ContactForm from "@/components/shared/contact-form";
 import { cn } from "@/lib/utils";
-import Clients from "./_sections/clients";
 import Context from "./_sections/context";
+import Customers from "./_sections/customers";
 import HomeHero from "./_sections/home-hero";
 import Logos from "./_sections/logos";
 import Numbers from "./_sections/numbers";
@@ -48,7 +48,7 @@ export default function Home() {
           <Context />
         </SectionWrapper>
         <SectionWrapper>
-          <Clients />
+          <Customers />
         </SectionWrapper>
         <SectionWrapper>
           <PilotProject />

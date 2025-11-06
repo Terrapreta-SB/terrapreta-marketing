@@ -30,9 +30,10 @@ export default function SoilRevolution() {
     <div className="container-site flex flex-col items-start gap-10">
       <hgroup className="flex h-full flex-col justify-between gap-2">
         <TagTitle tag="How" title="Leading the Soil revolution" />
-        <p className="w-1/2 text-stone-300 text-xl">
-          We are innovators, architects, engeeners and scientists who are
-          leading the Soil revolution.
+        <p className="w-2/3 text-pretty text-stone-300 text-xl">
+          We are architects and innovators, working with a wide team of
+          scientists to address the complexity of nature interactions for
+          leading the Soil Reveloution.
         </p>
       </hgroup>
       <div className="grid w-full grid-cols-3 gap-5">
@@ -42,7 +43,7 @@ export default function SoilRevolution() {
         />
         <SoilCard
           image={heroImage}
-          title="Safeguarding life on Earth by restoring the fundamental health of our soil."
+          title="Remediating contaminated soils through low-impact bioremediation solutions."
         />
         <SoilCard
           image={heroImage}

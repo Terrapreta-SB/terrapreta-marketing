@@ -148,3 +148,16 @@ export const UN_GOALS_QUERY =
     }
   }
 }`);
+
+export const CUSTOMERS_QUERY =
+  defineQuery(`*[_type == "customer"] | order(name asc){
+  _id,
+  name,
+  shortDescription,
+  mainImage{
+    asset->{
+      _id,
+      url
+    }
+  }
+}`);

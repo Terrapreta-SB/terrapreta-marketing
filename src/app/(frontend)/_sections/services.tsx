@@ -36,7 +36,7 @@ function ServiceCard({
   slug,
 }: ServiceCardProps) {
   return (
-    <div className="relative flex aspect-square w-full grid-cols-3 items-end gap-5 rounded bg-gray-600 p-7.5">
+    <div className="relative flex aspect-5/4 w-full grid-cols-3 items-end gap-5 rounded bg-gray-600 p-7.5">
       <div className="absolute inset-0 z-1 h-full w-full bg-stone-950/20" />
       <Image
         alt={name}
@@ -54,12 +54,14 @@ function ServiceCard({
       />
 
       <div className="z-10 flex items-baseline gap-5">
-        <h3 className="text-lg">{name}</h3>
         <Dialog>
-          <DialogTrigger asChild>
-            <Button size="icon" variant="outline">
-              <Plus />
-            </Button>
+          <DialogTrigger asChild className="w-full">
+            <div className="flex h-fit w-full items-center justify-between gap-5">
+              <h3 className="text-lg">{name}</h3>
+              <Button size="icon" variant="outline">
+                <Plus />
+              </Button>
+            </div>
           </DialogTrigger>
           <DialogContent className="container-article p-0!">
             <DialogHeader>
@@ -74,7 +76,7 @@ function ServiceCard({
                       .quality(5)
                       .auto("format")
                       .url()}
-                    className="h-full w-full object-cover object-center"
+                    className="h-full w-full rounded object-cover object-center"
                     fill
                     placeholder="blur"
                     quality={75}
@@ -118,7 +120,7 @@ export default async function Services() {
           <p className="col-span-2 text-balance text-stone-300 text-xl">
             We pioneer ecological restoration providing full-service design and
             consultancy, helping public and private clients realize complex,
-            innovative projects. Our research-driven approach empowers us to
+            innovative projects. Our research-driven approach allows us to
             deliver transformative solutions at any scale.
           </p>
           <Button asChild className="w-fit justify-self-end" variant="default">
@@ -127,7 +129,7 @@ export default async function Services() {
         </div>
       </hgroup>
 
-      <div className="grid w-full grid-cols-3 gap-5">
+      <div className="grid w-full grid-cols-2 gap-5">
         {services
           ?.filter(
             (

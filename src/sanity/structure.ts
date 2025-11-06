@@ -11,6 +11,7 @@ import {
   Rocket,
   Route,
   Settings2,
+  User,
   WholeWord,
 } from "lucide-react";
 import { structureTool } from "sanity/structure";
@@ -34,6 +35,7 @@ export const structure = structureTool({
 
         group(S, "Company", [
           S.documentTypeListItem("about").title("About").icon(Rocket),
+          S.documentTypeListItem("customer").title("Customers").icon(User),
         ]),
         S.divider(),
 

@@ -1,6 +1,7 @@
 import type { SchemaTypeDefinition } from "sanity";
 import { aboutDoc } from "./documents/aboutDoc";
 import { capabilityDoc } from "./documents/capabilityDoc";
+import { customerDoc } from "./documents/customerDoc";
 /* Documents */
 import { glossaryDoc } from "./documents/glossaryDoc";
 import { journalDoc } from "./documents/journalDoc";
@@ -45,6 +46,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     navigationDoc,
     organizationDoc,
     unGoalDoc,
+    customerDoc,
 
     /* Objects */
     titleSlugObject,

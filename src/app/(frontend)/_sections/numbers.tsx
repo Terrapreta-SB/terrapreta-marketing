@@ -43,7 +43,7 @@ export default function Numbers() {
     <div className="container-site flex flex-col items-start gap-10">
       <hgroup className="flex h-full flex-col justify-between gap-2">
         <TagTitle tag="Why" title="Soil needs our help" />
-        <p className="text-balance text-stone-300 text-xl">
+        <p className="w-2/3 text-pretty text-stone-300 text-xl">
           The conditions of soil in the European Union (and worldwide) are
           worrying, causing problems for the environment and human health.
         </p>
@@ -51,7 +51,7 @@ export default function Numbers() {
 
       <div className="grid grid-cols-3 gap-5">
         <NumberCard
-          description="Of contaminated sites to be recoverd, only in the EU."
+          description="Of estimated contaminated sites to be recoverd, only in the EU."
           image="https://cdn.sanity.io/images/wj2okvbq/production/05956bbe8b5b11c2c1fec5a7cd315971cfcc509b-1500x1125.webp"
           title="3 million"
         />
