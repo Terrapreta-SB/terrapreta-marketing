@@ -20,6 +20,9 @@ export const customerDoc = defineType({
       type: "text",
       name: "shortDescription",
       title: "Short Description",
+      description: "Max 280 characters",
+      validation: (e) =>
+        e.max(280).error("Short Description must be less than 280 characters"),
     }),
   ],
 });

@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineField, defineType } from "sanity";
 
 export const imageObject = defineType({
   type: "object",
@@ -10,6 +10,9 @@ export const imageObject = defineType({
       name: "image",
       title: "Image",
       validation: (e) => e.required(),
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({ type: "string", name: "altContent", title: "Alt Content" }),
     defineField({ type: "string", name: "caption", title: "Caption" }),

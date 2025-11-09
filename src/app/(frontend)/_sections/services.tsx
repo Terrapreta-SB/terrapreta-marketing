@@ -36,7 +36,7 @@ function ServiceCard({
   slug,
 }: ServiceCardProps) {
   return (
-    <div className="relative flex aspect-5/4 w-full grid-cols-3 items-end gap-5 rounded bg-gray-600 p-7.5">
+    <div className="relative flex aspect-3/2 w-full grid-cols-3 items-end gap-5 rounded bg-gray-600 p-7.5">
       <div className="absolute inset-0 z-1 h-full w-full bg-stone-950/20" />
       <Image
         alt={name}
@@ -63,38 +63,40 @@ function ServiceCard({
               </Button>
             </div>
           </DialogTrigger>
-          <DialogContent className="container-article p-0!">
-            <DialogHeader>
-              <div className="space-y-10">
-                <AspectRatio ratio={3 / 2}>
-                  <div className="absolute right-0 bottom-0 left-0 z-1 h-[45%] w-full bg-linear-to-t from-stone-950 to-transparent" />
-                  <Image
-                    alt={name}
-                    blurDataURL={urlFor(mainImage.image)
-                      .width(24)
-                      .height(24)
-                      .quality(5)
-                      .auto("format")
-                      .url()}
-                    className="h-full w-full rounded object-cover object-center"
-                    fill
-                    placeholder="blur"
-                    quality={75}
-                    src={urlFor(mainImage.image)
-                      .quality(75)
-                      .auto("format")
-                      .url()}
-                  />
-                </AspectRatio>
-
-                <DialogTitle className="px-10 font-normal text-3xl text-stone-50">
-                  {name}
-                </DialogTitle>
+          <DialogContent className="container-article !p-0">
+            <div className="space-y-1.5">
+              <DialogHeader>
+                <div className="space-y-10">
+                  <AspectRatio ratio={3 / 2}>
+                    <div className="absolute right-0 bottom-0 left-0 z-1 h-[45%] w-full bg-linear-to-t from-stone-950 to-transparent" />
+                    <Image
+                      alt={name}
+                      blurDataURL={urlFor(mainImage.image)
+                        .width(24)
+                        .height(24)
+                        .quality(5)
+                        .auto("format")
+                        .url()}
+                      className="h-full w-full rounded object-cover object-center"
+                      fill
+                      placeholder="blur"
+                      quality={75}
+                      src={urlFor(mainImage.image)
+                        .quality(75)
+                        .auto("format")
+                        .url()}
+                    />
+                  </AspectRatio>
+                  <DialogTitle className="px-10 font-normal text-3xl text-stone-50">
+                    {name}
+                  </DialogTitle>
+                </div>
+              </DialogHeader>
+              <div className="px-10 text-stone-400 text-xl">
+                {shortDescription}
               </div>
-            </DialogHeader>
-            <div className="px-10 text-stone-50 text-xl">
-              <div>{shortDescription}</div>
             </div>
+
             <div className="px-10 py-10">
               <Button>
                 <Link href={`/services/${slug}`}>Discover more</Link>
@@ -114,10 +116,10 @@ export default async function Services() {
 
   return (
     <div className="container-site flex flex-col items-start justify-center gap-10">
-      <hgroup className="flex w-full flex-col gap-5">
+      <hgroup className="flex w-full flex-col gap-1.5">
         <TagTitle tag="Services" title="Soil-based Solutions" />
         <div className="grid w-full grid-cols-3 gap-5">
-          <p className="col-span-2 text-balance text-stone-300 text-xl">
+          <p className="col-span-2 text-balance text-stone-400 text-xl">
             We pioneer ecological restoration providing full-service design and
             consultancy, helping public and private clients realize complex,
             innovative projects. Our research-driven approach allows us to
@@ -129,7 +131,7 @@ export default async function Services() {
         </div>
       </hgroup>
 
-      <div className="grid w-full grid-cols-2 gap-5">
+      <div className="grid w-full gap-5 lg:grid-cols-2">
         {services
           ?.filter(
             (

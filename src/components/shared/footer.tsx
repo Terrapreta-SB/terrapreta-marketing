@@ -48,7 +48,7 @@ export default async function Footer() {
         />
       )) || [];
   return (
-    <div className="flex w-full justify-center border-stone-800 border-t">
+    <div className="mt-40 flex w-full justify-center border-stone-800 border-t">
       <footer className="container-site flex flex-col justify-start gap-10 py-20">
         <div className="grid grid-cols-6 gap-5">
           <div className="col-span-3 flex flex-col gap-5">

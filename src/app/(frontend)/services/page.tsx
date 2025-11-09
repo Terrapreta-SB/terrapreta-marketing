@@ -8,7 +8,7 @@ export default async function Page() {
 
   return (
     <>
-      <PageHeader position="center" title="Services" />
+      <PageHeader position="left" title="Services" />
       <PageGrid basePath="services" items={services} />
     </>
   );

@@ -20,7 +20,7 @@ export default function TagTitle({
     <span className="flex flex-col items-start gap-5">
       <span
         className={cn(
-          "flex items-center justify-center gap-1.5 rounded-xl border bg-linear-to-t px-2.5 py-1 font-mono text-xs",
+          "flex items-center justify-center gap-1.5 rounded-xl border bg-linear-to-t px-2.5 py-1 font-mono text-xs tracking-wide",
           themeClass
         )}
       >

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import type {
   JOURNAL_QUERYResult,
@@ -54,10 +55,13 @@ function GridItem({
 
   return (
     <Link
-      className={`h-fit space-y-2.5 ${isBig ? "col-span-2" : "col-span-1"}`}
+      className={cn(
+        "group h-fit space-y-2.5",
+        isBig ? "col-span-2" : "col-span-1"
+      )}
       href={slug}
     >
-      <AspectRatio className="realative" ratio={ASPECT_RATIO}>
+      <AspectRatio className="realative overflow-hidden" ratio={ASPECT_RATIO}>
         <Image
           alt={name || ""}
           blurDataURL={urlFor(mainImage.image)
@@ -66,7 +70,7 @@ function GridItem({
             .quality(BLUR_QUALITY)
             .auto("format")
             .url()}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-103"
           fill
           placeholder="blur"
           quality={IMAGE_QUALITY}
@@ -111,7 +115,7 @@ export default function PageGrid({
   basePath: string;
 }) {
   return (
-    <section className="container-site mx-auto grid w-full grid-cols-3 gap-x-5 gap-y-15 pb-40">
+    <section className="container-site mx-auto grid w-full grid-cols-3 gap-x-5 gap-y-15 pb-40 starting:opacity-0 transition-opacity duration-300">
       {items.map((item) => {
         let slugValue: string | null = null;
         if (item.slug) {

@@ -10,6 +10,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { PortableImage } from "@/components/ui/portable-image";
 import SocialShare from "@/components/ui/social-share";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -35,8 +36,8 @@ export default async function Page({
   }
 
   return (
-    <article className="container-site mx-auto mt-17 flex flex-col items-center justify-center gap-5 pt-15 pb-20">
-      <hgroup className="flex flex-col items-center justify-center gap-5 text-balance pb-5 text-center">
+    <article className="container-site mx-auto flex flex-col items-center justify-center gap-5 pt-40 pb-20">
+      <hgroup className="flex starting:translate-y-2 translate-y-0 flex-col items-center justify-center gap-5 text-balance pb-5 text-center starting:opacity-0 transition-all duration-400">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -50,13 +51,16 @@ export default async function Page({
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h1 className="text-6xl">{journalItem?.name}</h1>
-        <p className="max-w-prose text-pretty text-2xl">
+        <h1 className="text-5xl tracking-tight">{journalItem?.name}</h1>
+        <p className="text-pretty text-2xl text-stone-400">
           {journalItem?.shortDescription}
         </p>
       </hgroup>
 
-      <AspectRatio className="relative" ratio={ASPECT_RATIO}>
+      <AspectRatio
+        className="relative blur-none starting:blur-xl transition-all duration-400"
+        ratio={ASPECT_RATIO}
+      >
         <Image
           alt={journalItem.name || ""}
           blurDataURL={urlFor(journalItem.mainImage.image)
@@ -68,6 +72,7 @@ export default async function Page({
           className="z-0 h-full w-full object-cover"
           fill
           placeholder="blur"
+          priority
           quality={IMAGE_QUALITY}
           sizes="100vw"
           src={urlFor(journalItem.mainImage.image)
@@ -96,7 +101,14 @@ export default async function Page({
         </ul>
         {journalItem?.contentObject && (
           <section className="space-y-7.5 text-pretty text-2xl">
-            <PortableText value={journalItem.contentObject} />
+            <PortableText
+              components={{
+                types: {
+                  imageObject: PortableImage,
+                },
+              }}
+              value={journalItem.contentObject}
+            />
           </section>
         )}
       </div>

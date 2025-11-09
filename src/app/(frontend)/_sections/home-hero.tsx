@@ -12,7 +12,7 @@ export default function HomeHero() {
     <div className="h-[90vh] w-full">
       <div className="relative flex h-full flex-col items-center justify-center">
         <div className="z-10 flex flex-col items-center justify-center gap-8">
-          <hgroup className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-2.5 text-center">
+          <hgroup className="mx-auto flex max-w-3xl starting:translate-y-4 translate-y-0 flex-col items-center justify-center gap-2.5 text-center opacity-100 starting:opacity-0 transition-all duration-800">
             <h1 className="text-balance font-bold text-6xl">
               Regenerating ecosystems from the <em>Soil Up</em>
             </h1>
@@ -20,11 +20,15 @@ export default function HomeHero() {
               Developing places for nature, people and climate
             </p>
           </hgroup>
-          <Button asChild variant={"brand"}>
+          <Button
+            asChild
+            className="opacity-100 starting:opacity-0 transition-opacity duration-1000"
+            variant={"brand"}
+          >
             <Link href="#learn-more">Learn More</Link>
           </Button>
         </div>
-        <div className="absolute right-0 bottom-0 left-0 z-10 flex animate-bounce flex-col items-center justify-center gap-2.5 pb-5">
+        <div className="absolute right-0 bottom-0 left-0 z-10 flex animate-bounce flex-col items-center justify-center gap-2.5 pb-5 opacity-100 starting:opacity-0 transition-opacity duration-2000">
           <p>Scroll to learn more</p>
           <ArrowDownIcon className="h-4 w-4" />
         </div>

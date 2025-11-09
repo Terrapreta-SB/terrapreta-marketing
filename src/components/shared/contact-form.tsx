@@ -37,7 +37,7 @@ export default function ContactForm() {
       </AspectRatio>
       <form className="w-full" method="POST" name="contact">
         <FieldSet>
-          <FieldLegend>Contact Us</FieldLegend>
+          <FieldLegend className="text-4xl">Contact Us</FieldLegend>
           <FieldDescription>We are here to help you.</FieldDescription>
           <FieldGroup>
             <Field>

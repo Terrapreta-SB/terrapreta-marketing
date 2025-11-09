@@ -45,7 +45,7 @@ export default function RootLayout({
         <meta content="Terrapreta" name="apple-mobile-web-app-title" />
       </head>
       <body
-        className={`${sans.variable} flex h-screen flex-col justify-between bg-stone-950 font-sans text-stone-50 antialiased`}
+        className={`${sans.variable} flex h-screen flex-col justify-between bg-stone-950 font-sans font-settings text-stone-50 antialiased`}
       >
         {children}
       </body>

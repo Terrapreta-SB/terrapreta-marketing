@@ -69,7 +69,28 @@ export const JOURNAL_ITEM_QUERY =
   location,
   publishingDate,
   shortDescription,
-  contentObject,
+  contentObject[]{
+    ...,
+    _type == "imageObject" => {
+      ...,
+      image{
+        ...,
+        hotspot,
+        crop,
+        asset->{
+          _id,
+          url,
+          metadata{
+            dimensions{
+              width,
+              height,
+              aspectRatio
+            }
+          }
+        }
+      }
+    }
+  },
   tag->{
     _id,
     name
@@ -106,7 +127,32 @@ export const SERVICE_QUERY =
   name,
   slug,
   shortDescription,
-  content,
+
+  content[]{
+    _type == "imageObject" => {
+      _type,
+      _key,
+      image{
+        _type,
+        hotspot,
+        crop,
+        asset->{
+          _id,
+          url,
+          metadata{
+            dimensions{
+              width,
+              height,
+              aspectRatio
+            }
+          }
+        }
+      },
+      altContent,
+      caption
+    },
+    _type != "imageObject" => @
+  },
   capabilities[]->{
     _id,
     name

@@ -34,7 +34,6 @@ export default async function Customers() {
           tag="Customers"
           title="Helping our customers to make the difference"
         />
-        <p className="w-1/2 text-stone-300 text-xl">abc</p>
       </hgroup>
       <div className="grid w-full grid-cols-3 gap-5">
         {validCustomers.map((customer) => (
@@ -51,10 +50,14 @@ export default async function Customers() {
                   .url()}
               />
             </AspectRatio>
-            <h3 className="text-lg">{customer.name}</h3>
-            {customer.shortDescription && (
-              <p className="text-sm">{customer.shortDescription}</p>
-            )}
+            <div className="space-y-1">
+              <h3 className="text-2xl">{customer.name}</h3>
+              {customer.shortDescription && (
+                <p className="text-lg text-stone-400">
+                  {customer.shortDescription}
+                </p>
+              )}
+            </div>
           </div>
         ))}
       </div>

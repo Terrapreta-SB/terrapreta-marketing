@@ -29,9 +29,9 @@ export default function PilotProject() {
       </div>
 
       <div className="h-full w-1/2 space-y-8">
-        <TagTitle tag="Our Pilot Project" title="Osservatorio La Goccia" />
-        <div className="space-y-4 text-lg">
-          <p>
+        <div className="space-y-1.5">
+          <TagTitle tag="Our Pilot Project" title="Osservatorio La Goccia" />
+          <p className="text-balance text-lg text-stone-400">
             Osservatorio La Goccia is an open-air laboratory that aims to
             validate innovative bioremediation solutions to regenerate the soils
             of the former Gasworks of Bovisa, protecting biodiversity and

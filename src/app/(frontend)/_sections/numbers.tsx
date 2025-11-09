@@ -41,9 +41,9 @@ function NumberCard({ title, description, image }: NumberCardProps) {
 export default function Numbers() {
   return (
     <div className="container-site flex flex-col items-start gap-10">
-      <hgroup className="flex h-full flex-col justify-between gap-2">
+      <hgroup className="flex h-full flex-col justify-between gap-1.5">
         <TagTitle tag="Why" title="Soil needs our help" />
-        <p className="w-2/3 text-pretty text-stone-300 text-xl">
+        <p className="w-2/3 text-pretty text-stone-400 text-xl">
           The conditions of soil in the European Union (and worldwide) are
           worrying, causing problems for the environment and human health.
         </p>

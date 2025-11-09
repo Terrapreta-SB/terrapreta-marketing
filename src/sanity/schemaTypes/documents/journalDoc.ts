@@ -36,6 +36,8 @@ export const journalDoc = defineType({
       type: "string",
       name: "location",
       title: "Location",
+      description:
+        "Use always a city and country in English, never a state or region. (Example: Milan, Italy)",
       validation: (e) => e.required(),
     }),
     defineField({

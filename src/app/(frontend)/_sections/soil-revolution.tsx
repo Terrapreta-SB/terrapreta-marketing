@@ -1,14 +1,23 @@
 import Image, { type StaticImageData } from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import TagTitle from "@/components/ui/tag-title";
-import heroImage from "@/public/images/terrapreta_hero.webp";
+
+const designCover =
+  "https://cdn.sanity.io/images/wj2okvbq/production/c3e88b5e56a22300b4add544c008ffb4e89674eb-1200x857.webp";
+
+const analyzeCover =
+  "https://cdn.sanity.io/images/wj2okvbq/production/5dd442374b3c7dc8c8a8e2b2f4cd60da8627d824-1200x1798.webp";
+
+const engageCover =
+  "https://cdn.sanity.io/images/wj2okvbq/production/fa9d22362317a91c3a70093473611429702c875a-2000x3000.webp";
 
 type SoilCardProps = {
   title: string;
   image: StaticImageData | string;
+  description: string;
 };
 
-function SoilCard({ title, image }: SoilCardProps) {
+function SoilCard({ title, image, description }: SoilCardProps) {
   return (
     <div className="flex flex-col gap-2.5">
       <AspectRatio className="relative h-full w-full rounded" ratio={4 / 5}>
@@ -20,7 +29,10 @@ function SoilCard({ title, image }: SoilCardProps) {
           src={image}
         />
       </AspectRatio>
-      <h3 className="text-balance text-xl">{title}</h3>
+      <div className="space-y-1">
+        <h3 className="text-balance font-medium text-xl">{title}</h3>
+        <p className="text-lg text-stone-400">{description}</p>
+      </div>
     </div>
   );
 }
@@ -28,9 +40,9 @@ function SoilCard({ title, image }: SoilCardProps) {
 export default function SoilRevolution() {
   return (
     <div className="container-site flex flex-col items-start gap-10">
-      <hgroup className="flex h-full flex-col justify-between gap-2">
+      <hgroup className="flex h-full flex-col justify-between gap-1.5">
         <TagTitle tag="How" title="Leading the Soil revolution" />
-        <p className="w-2/3 text-pretty text-stone-300 text-xl">
+        <p className="w-2/3 text-pretty text-stone-400 text-xl">
           We are architects and innovators, working with a wide team of
           scientists to address the complexity of nature interactions for
           leading the Soil Reveloution.
@@ -38,16 +50,19 @@ export default function SoilRevolution() {
       </hgroup>
       <div className="grid w-full grid-cols-3 gap-5">
         <SoilCard
-          image={heroImage}
-          title="Replacing unsustainable management with regenerative practices to heal our soil."
+          description="Scientific research and field studies allow us to collect data for evidence-based design and planning."
+          image={analyzeCover}
+          title="Analize"
         />
         <SoilCard
-          image={heroImage}
-          title="Remediating contaminated soils through low-impact bioremediation solutions."
+          description="Through our landscape design process, we develop solutions for restoring degraded land."
+          image={designCover}
+          title="Design"
         />
         <SoilCard
-          image={heroImage}
-          title="Unlocking the immense ecological and economic value that high-quality, living soil provides."
+          description="To create real change, we engage stakeholders throughout the process and promote soil knowledge through educational activities."
+          image={engageCover}
+          title="Enagage"
         />
       </div>
     </div>

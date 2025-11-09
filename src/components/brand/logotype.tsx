@@ -1,13 +1,14 @@
 import type { SVGProps } from "react";
+
 const Logotype = ({
   fill = "white",
   ...props
 }: SVGProps<SVGSVGElement> & { fill?: string }) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
+    className="h-full w-full"
     fill={fill}
     viewBox="0 0 250 46.35"
-    className="h-full w-full"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <title>Terrapreta</title>

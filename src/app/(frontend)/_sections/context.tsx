@@ -5,13 +5,13 @@ import TagTitle from "@/components/ui/tag-title";
 export default function Context() {
   return (
     <section className="container-site flex flex-col items-start gap-10 rounded bg-stone-200 py-5 text-stone-950">
-      <hgroup className="flex h-full w-full flex-col justify-between gap-2">
+      <hgroup className="flex h-full w-full flex-col justify-between gap-1.5">
         <TagTitle
           tag="Context"
           theme="light"
           title="Our Mission in Europe's Soil Health Revolution"
         />
-        <p className="w-2/3 text-balance text-stone-800 text-xl">
+        <p className="w-2/3 text-balance text-stone-700 text-xl">
           Europe is taking unprecedented action to reverse soil degradation and
           contamination, guided by the EU Soil Strategy for 2030 and
           groundbreaking laws like the Soil Monitoring Law. These initiatives

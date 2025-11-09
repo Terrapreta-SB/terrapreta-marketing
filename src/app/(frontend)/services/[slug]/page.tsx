@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "next-sanity";
 import { Button } from "@/components/ui/button";
+import { PortableImage } from "@/components/ui/portable-image";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SERVICE_QUERY } from "@/sanity/lib/queries";
@@ -18,22 +19,20 @@ export default async function Page({
 
   return (
     <>
-      {/*  <div className="container-site mt-17 flex flex-col items-center justify-center gap-5 pt-15 pb-20">  */}
-      <div className="relative flex h-[60vh] min-h-[800px] w-full flex-col items-center justify-center gap-5">
-        <div className="container-site absolute">
-          <div className="relative flex w-1/2 flex-col items-start justify-center gap-5 pr-5">
-            <h1 className="text-4xl">{service?.name}</h1>
-            <p className="max-w-prose text-pretty text-foreground-muted text-md">
-              {service?.shortDescription}
-            </p>
+      <div className="flex w-full flex-col items-center justify-center gap-20 bg-stone-800 py-40">
+        <div className="container-site grid grid-cols-1 gap-20 lg:grid-cols-[40%_60%] lg:gap-5">
+          <div className="flex flex-col items-start justify-center gap-10">
+            <hgroup className="flex w-full flex-col items-start justify-center gap-1.5">
+              <h1 className="font-bold text-4xl">{service?.name}</h1>
+              <p className="max-w-prose text-pretty text-lg text-stone-300">
+                {service?.shortDescription}
+              </p>
+            </hgroup>
             <Button>
               <Link href="/discovery-call">Book a Discovery Call</Link>
             </Button>
           </div>
-        </div>
-        <hgroup className="flex h-full w-full items-center justify-center gap-5 text-balance bg-linear-to-r from-stone-800 to-transparent">
-          <div className="relative h-full w-1/2" />
-          <div className="relative h-full w-1/2">
+          <div className="container-site relative aspect-3/2 rounded-md">
             {service?.mainImage?.image && (
               <Image
                 alt={service?.name || ""}
@@ -43,7 +42,7 @@ export default async function Page({
                   .quality(5)
                   .auto("format")
                   .url()}
-                className="z-0 h-full w-full object-cover object-center"
+                className="z-0 aspect-4/5 h-full w-full rounded-md object-cover object-center"
                 fill
                 placeholder="blur"
                 quality={75}
@@ -54,7 +53,7 @@ export default async function Page({
               />
             )}
           </div>
-        </hgroup>
+        </div>
       </div>
 
       <article className="container-article space-y-20 py-20">
@@ -97,8 +96,8 @@ export default async function Page({
         )}
 
         {/* Capabilities */}
-        <div className="flex flex-col items-start justify-center space-y-5">
-          <h3 className="text-2xl">Our Capabilities</h3>
+        <div className="flex flex-col items-start justify-center space-y-2.5">
+          <h3 className="font-bold text-2xl">Our Capabilities</h3>
           <div className="flex flex-row flex-wrap items-start justify-start gap-x-2.5 gap-y-3">
             {service?.capabilities
               ?.filter(
@@ -107,7 +106,7 @@ export default async function Page({
               )
               .map((capability) => (
                 <div
-                  className="rounded-full border border-stone-400 px-3 py-1.5"
+                  className="rounded-full border border-stone-500 px-3 py-1.5 text-stone-100"
                   key={capability._id}
                 >
                   {capability.name}
@@ -117,7 +116,16 @@ export default async function Page({
         </div>
 
         <div className="flex flex-col items-start justify-center space-y-5 text-2xl">
-          {service?.content && <PortableText value={service.content} />}
+          {service?.content && (
+            <PortableText
+              components={{
+                types: {
+                  imageObject: PortableImage,
+                },
+              }}
+              value={service.content}
+            />
+          )}
         </div>
       </article>
     </>
