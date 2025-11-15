@@ -1,4 +1,5 @@
 import { Minus } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
@@ -20,6 +21,30 @@ const ASPECT_RATIO = 16 / 9;
 const IMAGE_QUALITY = 75;
 const BLUR_QUALITY = 5;
 const BLUR_SIZE = 24;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { data: journalItem } = await sanityFetch({
+    query: JOURNAL_ITEM_QUERY,
+    params: await params,
+  });
+
+  if (!journalItem?.name) {
+    return {
+      title: "Journal — Terrapreta",
+      description: "Read our latest journal entries.",
+    };
+  }
+
+  return {
+    title: `${journalItem.name} — Terrapreta`,
+    description:
+      journalItem.shortDescription || "Read our latest journal entries.",
+  };
+}
 
 export default async function Page({
   params,

@@ -22,7 +22,8 @@ export function ObfuscatedEmail({
     setEmail(`${local}@${domain}`);
   }, [local, domain]);
 
-  const displayText = display ?? email;
+  const obfuscatedDisplay = `${local} [at] ${domain.replace(/\./g, " [dot] ")}`;
+  const displayText = display ?? obfuscatedDisplay;
 
   if (!email) {
     return <span className={className}>{displayText}</span>;

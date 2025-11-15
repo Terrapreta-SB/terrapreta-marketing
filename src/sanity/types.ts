@@ -822,6 +822,79 @@ export type SERVICE_QUERYResult = {
     } | null;
   } | null;
 } | null;
+// Variable: PROJECT_ITEM_QUERY
+// Query: *[_type == "project" && slug.current == $slug][0]{  _id,  name,  slug,  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  status,  location,  areaRestored,  interventionType,  shortDescription,  pageContent{    content[]{      ...,      _type == "imageObject" => {        ...,        image{          ...,          hotspot,          crop,          asset->{            _id,            url,            metadata{              dimensions{                width,                height,                aspectRatio              }            }          }        }      }    }  },  relatedService->{    _id,    name,    slug  },  relatedResearch->{    _id,    name  }}
+export type PROJECT_ITEM_QUERYResult = {
+  _id: string;
+  name: string | null;
+  slug: Slug | null;
+  mainImage: {
+    _type: "imageObject";
+    image: {
+      _type: "image";
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+    } | null;
+  } | null;
+  status: "cancelled" | "completed" | "in-costruction" | "in-progress" | "on-hold" | null;
+  location: string | null;
+  areaRestored: string | null;
+  interventionType: string | null;
+  shortDescription: string | null;
+  pageContent: {
+    content: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      _key: string;
+      _type: "imageObject";
+      image: {
+        asset: {
+          _id: string;
+          url: string | null;
+          metadata: {
+            dimensions: {
+              width: number | null;
+              height: number | null;
+              aspectRatio: number | null;
+            } | null;
+          } | null;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        _type: "image";
+      } | null;
+      altContent?: string;
+      caption?: string;
+    }> | null;
+  } | null;
+  relatedService: {
+    _id: string;
+    name: string | null;
+    slug: Slug | null;
+  } | null;
+  relatedResearch: {
+    _id: string;
+    name: null;
+  } | null;
+} | null;
 // Variable: UN_GOALS_QUERY
 // Query: *[_type == "unGoal"] | order(name asc){  _id,  name,  logoNegative{    _type,    asset->{      _id,      url    }  },  logoPositive{    _type,    asset->{      _id,      url    }  }}
 export type UN_GOALS_QUERYResult = Array<{
@@ -869,6 +942,7 @@ declare module "@sanity/client" {
     "*[_type == \"tag\"] | order(name asc){\n  _id,\n  name,\n  slug\n}": TAGS_QUERYResult;
     "*[_type == \"service\" && defined(slug.current)] | order(name asc){\n  _id,\n  name,\n  slug,\n  shortDescription,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n}": SERVICES_QUERYResult;
     "*[_type == \"service\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  shortDescription,\n\n  content[]{\n    ...,\n    _type == \"imageObject\" => {\n      ...,\n      image{\n        ...,\n        hotspot,\n        crop,\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height,\n              aspectRatio\n            }\n          }\n        }\n      }\n    }\n  },\n  capabilities[]->{\n    _id,\n    name\n  },\n  clients[]->{\n    _id,\n    name,\n    logoDark{\n      asset->{\n        _id,\n        _type,\n        url\n      }\n    }\n  },\n  mainImage{\n    image{\n      asset->{\n        url\n      }\n    }\n  }\n}": SERVICE_QUERYResult;
+    "*[_type == \"project\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  status,\n  location,\n  areaRestored,\n  interventionType,\n  shortDescription,\n  pageContent{\n    content[]{\n      ...,\n      _type == \"imageObject\" => {\n        ...,\n        image{\n          ...,\n          hotspot,\n          crop,\n          asset->{\n            _id,\n            url,\n            metadata{\n              dimensions{\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          }\n        }\n      }\n    }\n  },\n  relatedService->{\n    _id,\n    name,\n    slug\n  },\n  relatedResearch->{\n    _id,\n    name\n  }\n}": PROJECT_ITEM_QUERYResult;
     "*[_type == \"unGoal\"] | order(name asc){\n  _id,\n  name,\n  logoNegative{\n    _type,\n    asset->{\n      _id,\n      url\n    }\n  },\n  logoPositive{\n    _type,\n    asset->{\n      _id,\n      url\n    }\n  }\n}": UN_GOALS_QUERYResult;
     "*[_type == \"customer\"] | order(name asc){\n  _id,\n  name,\n  shortDescription,\n  mainImage{\n    hotspot,\n    crop,\n    asset->{\n      _id,\n      url\n    }\n  }\n}": CUSTOMERS_QUERYResult;
   }

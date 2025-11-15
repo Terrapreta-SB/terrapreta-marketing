@@ -63,6 +63,26 @@ const nextConfig: NextConfig = {
         destination: "/projects/osservatorio-la-goccia",
         permanent: true,
       },
+      {
+        source: "/ita/impressum",
+        destination: "/impressum",
+        permanent: true,
+      },
+      {
+        source: "/en/impressum",
+        destination: "/impressum",
+        permanent: true,
+      },
+      {
+        source: "/en/credits",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/ita/credits",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 };

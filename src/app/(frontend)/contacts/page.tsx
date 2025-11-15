@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import CalendarStefano from "@/components/features/calendar-stefano";
 import { ObfuscatedEmail } from "@/components/shared/obfuscated-email";
 import PageHeader from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "Contacts — Terrapreta",
+  description: "Get in touch with Terrapreta.",
+};
 
 export default function ContactsPage() {
   return (
@@ -13,7 +19,11 @@ export default function ContactsPage() {
         <div className="flex flex-col items-start justify-center gap-10">
           <h2 className="font-bold text-2xl">Write us an email</h2>
           <Button asChild size="lg" variant="outline">
-            <ObfuscatedEmail domain="terrapreta.com" local="mail" />
+            <ObfuscatedEmail
+              display="mail@terrapreta.it"
+              domain="terrapreta.com"
+              local="mail"
+            />
           </Button>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import { Minus } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
@@ -19,6 +20,29 @@ const ASPECT_RATIO = 16 / 9;
 const IMAGE_QUALITY = 75;
 const BLUR_QUALITY = 5;
 const BLUR_SIZE = 24;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { data: projectItem } = await sanityFetch({
+    query: PROJECT_ITEM_QUERY,
+    params: await params,
+  });
+
+  if (!projectItem?.name) {
+    return {
+      title: "Projects — Terrapreta",
+      description: "Explore our latest projects.",
+    };
+  }
+
+  return {
+    title: `${projectItem.name} — Terrapreta`,
+    description: projectItem.shortDescription || "Explore our latest projects.",
+  };
+}
 
 export default async function Page({
   params,
