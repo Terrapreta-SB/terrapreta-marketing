@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { ObfuscatedEmail } from "@/components/shared/obfuscated-email";
 import PageHeader from "@/components/shared/page-header";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Impressum — Terrapreta",
+export const metadata: Metadata = generateMetadataHelper({
+  title: "Impressum",
   description: "Legal information about Terrapreta.",
-};
+  url: "/impressum",
+});
 
 export default function ImpressumPage() {
   return (

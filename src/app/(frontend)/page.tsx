@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
 import Customers from "./_sections/customers";
 import HomeHero from "./_sections/home-hero";
@@ -8,6 +10,13 @@ import Numbers from "./_sections/numbers";
 import PilotProject from "./_sections/pilot-project";
 import Services from "./_sections/services";
 import SoilRevolution from "./_sections/soil-revolution";
+
+export const metadata: Metadata = generateMetadataHelper({
+  title: "Terrapreta — Soil-based Solutions",
+  description:
+    "Regenerating ecosystems from the soil up. Growing equitable places for nature, people and climate.",
+  url: "/",
+});
 
 type SectionWrapperProps = {
   children: React.ReactNode;

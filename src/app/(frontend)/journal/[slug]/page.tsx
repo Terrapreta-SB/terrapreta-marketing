@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
+import { JsonLd } from "@/components/shared/json-ld";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Breadcrumb,
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { PortableImage } from "@/components/ui/portable-image";
 import SocialShare from "@/components/ui/social-share";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { JOURNAL_ITEM_QUERY } from "@/sanity/lib/queries";
@@ -27,23 +29,29 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const { slug } = await params;
   const { data: journalItem } = await sanityFetch({
     query: JOURNAL_ITEM_QUERY,
-    params: await params,
+    params: { slug },
   });
 
   if (!journalItem?.name) {
-    return {
-      title: "Journal — Terrapreta",
+    return generateMetadataHelper({
+      title: "Journal",
       description: "Read our latest journal entries.",
-    };
+      url: "/journal",
+    });
   }
 
-  return {
-    title: `${journalItem.name} — Terrapreta`,
+  return generateMetadataHelper({
+    title: journalItem.name,
     description:
       journalItem.shortDescription || "Read our latest journal entries.",
-  };
+    image: journalItem.mainImage?.image ?? undefined,
+    url: `/journal/${slug}`,
+    type: "article",
+    publishedTime: journalItem.publishingDate ?? undefined,
+  });
 }
 
 export default async function Page({
@@ -141,6 +149,34 @@ export default async function Page({
       </div>
 
       <SocialShare />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: journalItem?.name,
+          description: journalItem?.shortDescription,
+          ...(journalItem?.publishingDate && {
+            datePublished: journalItem.publishingDate,
+          }),
+          ...(journalItem?.mainImage?.image && {
+            image: urlFor(journalItem.mainImage.image)
+              .width(1200)
+              .auto("format")
+              .url(),
+          }),
+          ...(journalItem?.location && {
+            locationCreated: journalItem.location,
+          }),
+          author: {
+            "@type": "Organization",
+            name: "Terrapreta",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "Terrapreta",
+          },
+        }}
+      />
     </article>
   );
 }

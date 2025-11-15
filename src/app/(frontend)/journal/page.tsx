@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import PageGrid from "@/components/layout/page-grid";
 import PageHeader from "@/components/shared/page-header";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/live";
 import { JOURNAL_QUERY } from "@/sanity/lib/queries";
 
-export const metadata: Metadata = {
-  title: "Journal — Terrapreta",
+export const metadata: Metadata = generateMetadataHelper({
+  title: "Journal",
   description: "Read our latest journal entries.",
-};
+  url: "/journal",
+});
 
 export default async function Page() {
   const { data: journal } = await sanityFetch({ query: JOURNAL_QUERY });

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import { JsonLd } from "@/components/shared/json-ld";
 
 const sans = localFont({
   variable: "--font-sans",
@@ -28,17 +29,21 @@ const sans = localFont({
   ],
 });
 
-export const metadata: Metadata = {
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
+
+export const metadata: Metadata = generateMetadataHelper({
   title: "Terrapreta — Soil-based Solutions",
   description:
     "Regenerating ecosystems from the soil up. Growing equitable places for nature, people and climate.",
-};
+});
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://terrapreta.it";
+
   return (
     <html className="dark scroll-smooth bg-stone-950" lang="en">
       <head>
@@ -47,6 +52,30 @@ export default function RootLayout({
       <body
         className={`${sans.variable} flex h-screen flex-col justify-between bg-stone-950 font-sans font-settings text-stone-50 antialiased`}
       >
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Terrapreta",
+            url: baseUrl,
+            logo: `${baseUrl}/images/terrapreta_hero.webp`,
+            description:
+              "Regenerating ecosystems from the soil up. Growing equitable places for nature, people and climate.",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Via Valparaiso 11",
+              addressLocality: "Milano",
+              addressRegion: "MI",
+              postalCode: "20144",
+              addressCountry: "IT",
+            },
+            contactPoint: {
+              "@type": "ContactPoint",
+              email: "mail@terrapreta.it",
+              contactType: "Customer Service",
+            },
+          }}
+        />
         {children}
       </body>
     </html>

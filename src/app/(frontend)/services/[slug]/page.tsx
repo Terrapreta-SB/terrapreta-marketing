@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PortableText } from "next-sanity";
 import { Button } from "@/components/ui/button";
 import { PortableImage } from "@/components/ui/portable-image";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SERVICE_QUERY } from "@/sanity/lib/queries";
@@ -13,22 +14,26 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const { slug } = await params;
   const { data: service } = await sanityFetch({
     query: SERVICE_QUERY,
-    params: await params,
+    params: { slug },
   });
 
   if (!service?.name) {
-    return {
-      title: "Services — Terrapreta",
+    return generateMetadataHelper({
+      title: "Services",
       description: "Discover our services.",
-    };
+      url: "/services",
+    });
   }
 
-  return {
-    title: `${service.name} — Terrapreta`,
+  return generateMetadataHelper({
+    title: service.name,
     description: service.shortDescription || "Discover our services.",
-  };
+    image: service.mainImage?.image ?? undefined,
+    url: `/services/${slug}`,
+  });
 }
 
 export default async function Page({

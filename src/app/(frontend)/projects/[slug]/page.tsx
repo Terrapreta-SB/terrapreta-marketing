@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
+import { JsonLd } from "@/components/shared/json-ld";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Breadcrumb,
@@ -12,6 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { PortableImage } from "@/components/ui/portable-image";
 import SocialShare from "@/components/ui/social-share";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PROJECT_ITEM_QUERY } from "@/sanity/lib/queries";
@@ -26,22 +28,27 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const { slug } = await params;
   const { data: projectItem } = await sanityFetch({
     query: PROJECT_ITEM_QUERY,
-    params: await params,
+    params: { slug },
   });
 
   if (!projectItem?.name) {
-    return {
-      title: "Projects — Terrapreta",
+    return generateMetadataHelper({
+      title: "Projects",
       description: "Explore our latest projects.",
-    };
+      url: "/projects",
+    });
   }
 
-  return {
-    title: `${projectItem.name} — Terrapreta`,
+  return generateMetadataHelper({
+    title: projectItem.name,
     description: projectItem.shortDescription || "Explore our latest projects.",
-  };
+    image: projectItem.mainImage?.image ?? undefined,
+    url: `/projects/${slug}`,
+    type: "article",
+  });
 }
 
 export default async function Page({
@@ -130,6 +137,22 @@ export default async function Page({
       </div>
 
       <SocialShare />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Project",
+          name: projectItem?.name,
+          description: projectItem?.shortDescription,
+          ...(projectItem?.location && { location: projectItem.location }),
+          ...(projectItem?.status && { status: projectItem.status }),
+          ...(projectItem?.mainImage?.image && {
+            image: urlFor(projectItem.mainImage.image)
+              .width(1200)
+              .auto("format")
+              .url(),
+          }),
+        }}
+      />
     </article>
   );
 }

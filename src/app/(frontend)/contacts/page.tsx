@@ -3,11 +3,13 @@ import CalendarStefano from "@/components/features/calendar-stefano";
 import { ObfuscatedEmail } from "@/components/shared/obfuscated-email";
 import PageHeader from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Contacts — Terrapreta",
+export const metadata: Metadata = generateMetadataHelper({
+  title: "Contacts",
   description: "Get in touch with Terrapreta.",
-};
+  url: "/contacts",
+});
 
 export default function ContactsPage() {
   return (
