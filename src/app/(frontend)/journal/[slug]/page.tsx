@@ -100,7 +100,7 @@ export default async function Page({
           </li>
         </ul>
         {journalItem?.contentObject && (
-          <section className="space-y-7.5 text-pretty text-2xl">
+          <section className="space-y-7.5 text-pretty text-lg md:text-xl lg:text-2xl">
             <PortableText
               components={{
                 types: {

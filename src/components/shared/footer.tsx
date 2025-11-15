@@ -48,7 +48,7 @@ export default async function Footer() {
         />
       )) || [];
   return (
-    <div className="mt-40 flex w-full justify-center border-stone-800 border-t">
+    <div className="mt-20 flex w-full justify-center border-stone-800 border-t md:mt-40">
       <footer className="container-site flex flex-col justify-start gap-10 py-20">
         <div className="grid grid-cols-1 gap-5 gap-y-15 md:grid-cols-2 md:gap-y-0 lg:grid-cols-6">
           <div className="col-span-3 flex flex-col gap-5">
@@ -56,7 +56,7 @@ export default async function Footer() {
               <Mark />
             </div>
             <div className="flex flex-col gap-7.5">
-              <p className="max-w-[50ch] text-balance">
+              <p className="max-w-full text-pretty md:max-w-[50ch] md:text-balance">
                 Our mission is to regenerate one million hectares of land by
                 2031 via Soil-based Solutions.
               </p>

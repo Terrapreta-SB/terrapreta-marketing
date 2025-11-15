@@ -65,16 +65,24 @@ export default async function Page({
               {service?.clients
                 ?.filter(
                   (client: {
-                    _id?: string;
-                    name?: string;
-                    logoDark?: {
-                      asset?: { _id?: string; _type?: string; url?: string };
-                    };
+                    _id: string;
+                    name: string | null;
+                    logoDark: {
+                      asset: {
+                        _id: string;
+                        _type: "sanity.imageAsset";
+                        url: string | null;
+                      } | null;
+                    } | null;
                   }): client is {
                     _id: string;
                     name: string;
                     logoDark: {
-                      asset: { _id: string; _type: string; url: string };
+                      asset: {
+                        _id: string;
+                        _type: "sanity.imageAsset";
+                        url: string;
+                      };
                     };
                   } => Boolean(client.name && client.logoDark?.asset?._id)
                 )
@@ -83,7 +91,11 @@ export default async function Page({
                     _id: string;
                     name: string;
                     logoDark: {
-                      asset: { _id: string; _type: string; url: string };
+                      asset: {
+                        _id: string;
+                        _type: "sanity.imageAsset";
+                        url: string;
+                      };
                     };
                   }) => {
                     const logoAsset = client.logoDark.asset;
@@ -119,8 +131,8 @@ export default async function Page({
             {service?.capabilities
               ?.filter(
                 (capability: {
-                  _id?: string;
-                  name?: string;
+                  _id: string;
+                  name: string | null;
                 }): capability is { _id: string; name: string } =>
                   Boolean(capability.name)
               )
@@ -135,7 +147,7 @@ export default async function Page({
           </div>
         </div>
 
-        <div className="flex flex-col items-start justify-center space-y-5 text-2xl">
+        <div className="flex flex-col items-start justify-center space-y-5 text-lg md:text-xl lg:text-2xl">
           {service?.content && (
             <PortableText
               components={{

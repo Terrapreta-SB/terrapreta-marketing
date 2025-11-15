@@ -8,8 +8,8 @@ const pilotProjectImage =
 
 export default function PilotProject() {
   return (
-    <div className="container-site flex h-full items-start justify-center gap-5">
-      <div className="relative h-full w-1/2 rounded">
+    <div className="container-site flex h-full flex-col items-start justify-center gap-5 md:flex-row">
+      <div className="relative h-full w-full rounded md:w-1/2">
         <AspectRatio ratio={5 / 4}>
           <Image
             alt="Pilot Project Image"
@@ -28,7 +28,7 @@ export default function PilotProject() {
         </AspectRatio>
       </div>
 
-      <div className="h-full w-1/2 space-y-8">
+      <div className="h-full w-full space-y-8 md:w-1/2">
         <div className="space-y-1.5">
           <TagTitle tag="Our Pilot Project" title="Osservatorio La Goccia" />
           <p className="text-balance text-lg text-stone-400">

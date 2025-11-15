@@ -21,8 +21,8 @@ function SectionWrapper({
   return (
     <div
       className={cn(
-        isFirstItem ? "pt-10 pb-30" : "py-30",
-        "space-y-60 bg-linear-to-b from-stone-900 to-transparent"
+        isFirstItem ? "pt-10 pb-15 md:pb-30" : "py-15 md:py-30",
+        "space-y-30 bg-linear-to-b from-stone-900 to-transparent md:space-y-60"
       )}
     >
       {children}

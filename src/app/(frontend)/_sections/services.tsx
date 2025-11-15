@@ -56,14 +56,14 @@ function ServiceCard({
       <div className="z-10 flex items-baseline gap-5">
         <Dialog>
           <DialogTrigger asChild className="w-full">
-            <div className="flex h-fit w-full items-center justify-between gap-5">
+            <div className="flex h-fit w-full justify-between gap-5 md:items-center">
               <h3 className="text-lg">{name}</h3>
               <Button size="icon" variant="outline">
                 <Plus />
               </Button>
             </div>
           </DialogTrigger>
-          <DialogContent className="container-article !p-0">
+          <DialogContent className="container-article p-0!">
             <div className="space-y-1.5">
               <DialogHeader>
                 <div className="space-y-10">
@@ -87,17 +87,17 @@ function ServiceCard({
                         .url()}
                     />
                   </AspectRatio>
-                  <DialogTitle className="px-10 font-normal text-3xl text-stone-50">
+                  <DialogTitle className="px-5 text-left font-normal text-2xl text-stone-50 md:px-10 md:text-3xl">
                     {name}
                   </DialogTitle>
                 </div>
               </DialogHeader>
-              <div className="px-10 text-stone-400 text-xl">
+              <div className="px-5 text-stone-400 text-xl md:px-10">
                 {shortDescription}
               </div>
             </div>
 
-            <div className="px-10 py-10">
+            <div className="p-5 pb-10 md:p-10">
               <Button>
                 <Link href={`/services/${slug}`}>Discover more</Link>
               </Button>
