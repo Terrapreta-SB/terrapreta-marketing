@@ -78,24 +78,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const dynamicRoutes: MetadataRoute.Sitemap = [
-    ...projects.map((project: { slug: string; _updatedAt: string }) => ({
-      url: `${baseUrl}/projects/${project.slug}`,
-      lastModified: new Date(project._updatedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    ...journal.map((post: { slug: string; _updatedAt: string }) => ({
-      url: `${baseUrl}/journal/${post.slug}`,
-      lastModified: new Date(post._updatedAt),
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    })),
-    ...services.map((service: { slug: string; _updatedAt: string }) => ({
-      url: `${baseUrl}/services/${service.slug}`,
-      lastModified: new Date(service._updatedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
+    ...projects
+      .filter((project) => project.slug)
+      .map((project) => ({
+        url: `${baseUrl}/projects/${project.slug}`,
+        lastModified: new Date(project._updatedAt),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })),
+    ...journal
+      .filter((post) => post.slug)
+      .map((post) => ({
+        url: `${baseUrl}/journal/${post.slug}`,
+        lastModified: new Date(post._updatedAt),
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      })),
+    ...services
+      .filter((service) => service.slug)
+      .map((service) => ({
+        url: `${baseUrl}/services/${service.slug}`,
+        lastModified: new Date(service._updatedAt),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })),
   ];
 
   return [...staticRoutes, ...dynamicRoutes];

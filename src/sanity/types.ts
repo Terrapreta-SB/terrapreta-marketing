@@ -616,6 +616,26 @@ export type ORGANIZATIONS_QUERYResult = Array<{
   } | null;
 }>;
 
+// Source: ./src/app/sitemap.ts
+// Variable: PROJECTS_SITEMAP_QUERY
+// Query: *[_type == "project" && defined(slug.current)] {    "slug": slug.current,    _updatedAt  }
+export type PROJECTS_SITEMAP_QUERYResult = Array<{
+  slug: string | null;
+  _updatedAt: string;
+}>;
+// Variable: JOURNAL_SITEMAP_QUERY
+// Query: *[_type == "journal" && defined(slug.current)] {    "slug": slug.current,    _updatedAt  }
+export type JOURNAL_SITEMAP_QUERYResult = Array<{
+  slug: string | null;
+  _updatedAt: string;
+}>;
+// Variable: SERVICES_SITEMAP_QUERY
+// Query: *[_type == "service" && defined(slug.current)] {    "slug": slug.current,    _updatedAt  }
+export type SERVICES_SITEMAP_QUERYResult = Array<{
+  slug: string | null;
+  _updatedAt: string;
+}>;
+
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PROJECTS_QUERY
 // Query: *[_type == "project" && defined(slug.current)] {  _id,  name,  slug,  shortDescription,  gridDimension{    isBig  },  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  tag->{    _id,    name  }}
@@ -936,6 +956,9 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"organization\"]{\n  _id,\n  name,\n  type,\n  logoDark{\n    _type,\n    asset->{\n      _id,\n      url,\n    }\n  },\n}": ORGANIZATIONS_QUERYResult;
+    "*[_type == \"project\" && defined(slug.current)] {\n    \"slug\": slug.current,\n    _updatedAt\n  }": PROJECTS_SITEMAP_QUERYResult;
+    "*[_type == \"journal\" && defined(slug.current)] {\n    \"slug\": slug.current,\n    _updatedAt\n  }": JOURNAL_SITEMAP_QUERYResult;
+    "*[_type == \"service\" && defined(slug.current)] {\n    \"slug\": slug.current,\n    _updatedAt\n  }": SERVICES_SITEMAP_QUERYResult;
     "*[_type == \"project\" && defined(slug.current)] {\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  tag->{\n    _id,\n    name\n  }\n}": PROJECTS_QUERYResult;
     "*[_type == \"journal\" && defined(slug.current)] | order(publishingDate desc){\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_QUERYResult;
     "*[_type == \"journal\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  location,\n  publishingDate,\n  shortDescription,\n  contentObject[]{\n    ...,\n    _type == \"imageObject\" => {\n      ...,\n      image{\n        ...,\n        hotspot,\n        crop,\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height,\n              aspectRatio\n            }\n          }\n        }\n      }\n    }\n  },\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_ITEM_QUERYResult;
