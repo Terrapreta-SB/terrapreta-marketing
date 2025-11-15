@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
+import { withPlausibleProxy } from "next-plausible";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     remotePatterns: [
+      /* TODO remove this once we have a proper image hosting */
       {
         protocol: "https",
         hostname: "placehold.co",
@@ -87,4 +88,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPlausibleProxy()(nextConfig);

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import PlausibleProvider from "next-plausible";
 import { JsonLd } from "@/components/shared/json-ld";
 
 const sans = localFont({
@@ -76,7 +77,7 @@ export default function RootLayout({
             },
           }}
         />
-        {children}
+        <PlausibleProvider domain="terrapreta.it">{children}</PlausibleProvider>
       </body>
     </html>
   );
