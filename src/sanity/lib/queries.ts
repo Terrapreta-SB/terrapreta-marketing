@@ -129,11 +129,11 @@ export const SERVICE_QUERY =
   shortDescription,
 
   content[]{
+    ...,
     _type == "imageObject" => {
-      _type,
-      _key,
+      ...,
       image{
-        _type,
+        ...,
         hotspot,
         crop,
         asset->{
@@ -147,11 +147,8 @@ export const SERVICE_QUERY =
             }
           }
         }
-      },
-      altContent,
-      caption
-    },
-    _type != "imageObject" => @
+      }
+    }
   },
   capabilities[]->{
     _id,
@@ -162,6 +159,8 @@ export const SERVICE_QUERY =
     name,
     logoDark{
       asset->{
+        _id,
+        _type,
         url
       }
     }
@@ -201,6 +200,8 @@ export const CUSTOMERS_QUERY =
   name,
   shortDescription,
   mainImage{
+    hotspot,
+    crop,
     asset->{
       _id,
       url

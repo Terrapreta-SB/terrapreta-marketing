@@ -115,7 +115,7 @@ export default function PageGrid({
   basePath: string;
 }) {
   return (
-    <section className="container-site mx-auto grid w-full grid-cols-3 gap-x-5 gap-y-15 pb-40 starting:opacity-0 transition-opacity duration-300">
+    <section className="container-site mx-auto grid w-full grid-cols-1 gap-x-5 gap-y-15 pb-40 starting:opacity-0 transition-opacity duration-300 md:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => {
         let slugValue: string | null = null;
         if (item.slug) {

@@ -4,7 +4,16 @@ import TagTitle from "@/components/ui/tag-title";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { CUSTOMERS_QUERY } from "@/sanity/lib/queries";
-import type { CUSTOMERS_QUERYResult } from "@/sanity/types";
+import type { CUSTOMERS_QUERYResult, SanityImageHotspot } from "@/sanity/types";
+
+function getObjectPosition(hotspot?: SanityImageHotspot | null): string {
+  if (!hotspot) {
+    return "center";
+  }
+  const x = (hotspot.x ?? 0.5) * 100;
+  const y = (hotspot.y ?? 0.5) * 100;
+  return `${x}% ${y}%`;
+}
 
 export default async function Customers() {
   const { data: customers } = await sanityFetch({
@@ -14,7 +23,7 @@ export default async function Customers() {
   const validCustomers =
     customers?.filter(
       (
-        customer
+        customer: CUSTOMERS_QUERYResult[number]
       ): customer is CUSTOMERS_QUERYResult[number] & {
         mainImage: NonNullable<CUSTOMERS_QUERYResult[number]["mainImage"]>;
         name: string;
@@ -35,31 +44,57 @@ export default async function Customers() {
           title="Helping our customers to make the difference"
         />
       </hgroup>
-      <div className="grid w-full grid-cols-3 gap-5">
-        {validCustomers.map((customer) => (
-          <div className="flex flex-col gap-2.5" key={customer._id}>
-            <AspectRatio className="relative rounded" ratio={5 / 4}>
-              <Image
-                alt={customer.name}
-                className="rounded object-cover"
-                fill
-                quality={75}
-                src={urlFor(customer.mainImage)
-                  .quality(75)
-                  .auto("format")
-                  .url()}
-              />
-            </AspectRatio>
-            <div className="space-y-1">
-              <h3 className="text-2xl">{customer.name}</h3>
-              {customer.shortDescription && (
-                <p className="text-lg text-stone-400">
-                  {customer.shortDescription}
-                </p>
-              )}
+      <div className="md grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {validCustomers.map(
+          (
+            customer: CUSTOMERS_QUERYResult[number] & {
+              mainImage: NonNullable<
+                CUSTOMERS_QUERYResult[number]["mainImage"]
+              >;
+              name: string;
+            }
+          ) => (
+            <div className="flex flex-col gap-2.5" key={customer._id}>
+              <AspectRatio className="relative rounded" ratio={5 / 4}>
+                <Image
+                  alt={customer.name}
+                  blurDataURL={urlFor(customer.mainImage)
+                    .width(24)
+                    .height(24)
+                    .quality(5)
+                    .auto("format")
+                    .url()}
+                  className="rounded object-cover"
+                  fill
+                  placeholder="blur"
+                  quality={75}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw,"
+                  src={urlFor(customer.mainImage)
+                    .quality(75)
+                    .auto("format")
+                    .url()}
+                  style={{
+                    objectPosition: getObjectPosition(
+                      (
+                        customer.mainImage as {
+                          hotspot?: SanityImageHotspot | null;
+                        }
+                      ).hotspot
+                    ),
+                  }}
+                />
+              </AspectRatio>
+              <div className="space-y-1">
+                <h3 className="text-2xl">{customer.name}</h3>
+                {customer.shortDescription && (
+                  <p className="text-lg text-stone-400">
+                    {customer.shortDescription}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
     </div>
   );

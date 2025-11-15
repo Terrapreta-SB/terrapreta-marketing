@@ -27,7 +27,7 @@ export default function TagTitle({
         <div className={cn("size-1.5 rounded-full", dotClass)} />
         {tag}
       </span>
-      <h2 className="font-bold text-4xl">{title}</h2>
+      <h2 className="font-bold text-2xl md:text-3xl lg:text-4xl">{title}</h2>
     </span>
   );
 }

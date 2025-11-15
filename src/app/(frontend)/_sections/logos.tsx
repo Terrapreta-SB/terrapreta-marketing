@@ -37,7 +37,7 @@ export default async function Logos() {
           )
       )
       .map((logo) => (
-        <div className="flex items-center justify-center px-8" key={logo._id}>
+        <div className="flex items-center justify-center px-16" key={logo._id}>
           <Image
             alt={logo.name}
             blurDataURL={urlFor(logo.logoDark).quality(5).auto("format").url()}
@@ -68,7 +68,7 @@ export default async function Logos() {
         {/* Right fade */}
         <div className="absolute top-0 right-0 z-10 h-full w-24 bg-linear-to-l from-stone-900 to-transparent" />
 
-        <Ticker hoverFactor={0.5} items={logoItems} />
+        <Ticker hoverFactor={0.8} items={logoItems} />
       </div>
     </div>
   );

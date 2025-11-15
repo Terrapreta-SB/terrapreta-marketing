@@ -61,15 +61,8 @@ export default function Header() {
         </Link>
         <NavigationDesktop />
         <div className="flex items-center gap-4">
-          <Button
-            onClick={() => {
-              const email = "mail@terrapreta.com".split("").reverse().join("");
-              window.location.href = `mailto:${email.split("").reverse().join("")}`;
-            }}
-            size={"sm"}
-            variant={buttonVariant}
-          >
-            Contact Us
+          <Button asChild size={"sm"} variant={buttonVariant}>
+            <Link href="/contacts">Contact Us</Link>
           </Button>
           <Button
             className="md:hidden"

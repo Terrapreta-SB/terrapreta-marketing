@@ -1,6 +1,6 @@
-import ContactForm from "@/components/shared/contact-form";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Context from "./_sections/context";
 import Customers from "./_sections/customers";
 import HomeHero from "./_sections/home-hero";
 import Logos from "./_sections/logos";
@@ -44,9 +44,9 @@ export default function Home() {
         <SectionWrapper>
           <Services />
         </SectionWrapper>
-        <SectionWrapper>
+        {/*       <SectionWrapper>
           <Context />
-        </SectionWrapper>
+        </SectionWrapper> */}
         <SectionWrapper>
           <Customers />
         </SectionWrapper>
@@ -55,7 +55,12 @@ export default function Home() {
         </SectionWrapper>
         <SectionWrapper>
           <Logos />
-          <ContactForm />
+          {/* <ContactForm /> */}
+          <div className="flex w-full items-center justify-center">
+            <Button asChild>
+              <Link href="/contacts">Get in contact</Link>
+            </Button>
+          </div>
         </SectionWrapper>
       </div>
     </>

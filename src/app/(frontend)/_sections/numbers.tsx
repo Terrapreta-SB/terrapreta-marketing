@@ -43,13 +43,13 @@ export default function Numbers() {
     <div className="container-site flex flex-col items-start gap-10">
       <hgroup className="flex h-full flex-col justify-between gap-1.5">
         <TagTitle tag="Why" title="Soil needs our help" />
-        <p className="w-2/3 text-pretty text-stone-400 text-xl">
+        <p className="text-pretty text-stone-400 text-xl md:w-2/3">
           The conditions of soil in the European Union (and worldwide) are
           worrying, causing problems for the environment and human health.
         </p>
       </hgroup>
 
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <NumberCard
           description="Of estimated contaminated sites to be recoverd, only in the EU."
           image="https://cdn.sanity.io/images/wj2okvbq/production/05956bbe8b5b11c2c1fec5a7cd315971cfcc509b-1500x1125.webp"

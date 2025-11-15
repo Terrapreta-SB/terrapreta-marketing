@@ -50,13 +50,13 @@ export default async function Footer() {
   return (
     <div className="mt-40 flex w-full justify-center border-stone-800 border-t">
       <footer className="container-site flex flex-col justify-start gap-10 py-20">
-        <div className="grid grid-cols-6 gap-5">
+        <div className="grid grid-cols-1 gap-5 gap-y-15 md:grid-cols-2 md:gap-y-0 lg:grid-cols-6">
           <div className="col-span-3 flex flex-col gap-5">
             <div className="h-6 w-fit">
               <Mark />
             </div>
             <div className="flex flex-col gap-7.5">
-              <p className="text-balance">
+              <p className="max-w-[50ch] text-balance">
                 Our mission is to regenerate one million hectares of land by
                 2031 via Soil-based Solutions.
               </p>
@@ -74,16 +74,24 @@ export default async function Footer() {
             <h3 className="text-stone-400">Terrapreta</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/services/s1">service1</Link>
+                <Link href="/services/brownfield-restoration">
+                  Brownfield Restoration
+                </Link>
               </li>
               <li>
-                <Link href="/services/s1">service2</Link>
+                <Link href="/services/data-driven-urban-planning">
+                  Data-driven Urban Planning
+                </Link>
               </li>
               <li>
-                <Link href="/services/s1">service3</Link>
+                <Link href="/services/soil-health-strategies">
+                  Soil Health Strategies
+                </Link>
               </li>
               <li>
-                <Link href="/services/s1">service4</Link>
+                <Link href="/services/nbs-landscape-design">
+                  NbS Landscape Design
+                </Link>
               </li>
             </ul>
           </div>
@@ -128,7 +136,7 @@ export default async function Footer() {
               </li>
             </ul>
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 opacity-0">
             <h3 className="text-stone-400">Legal</h3>
             <ul className="space-y-2">
               <li>

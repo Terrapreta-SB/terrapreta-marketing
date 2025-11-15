@@ -64,33 +64,50 @@ export default async function Page({
             <div className="flex flex-row items-center justify-center gap-5">
               {service?.clients
                 ?.filter(
-                  (
-                    client
-                  ): client is {
+                  (client: {
+                    _id?: string;
+                    name?: string;
+                    logoDark?: {
+                      asset?: { _id?: string; _type?: string; url?: string };
+                    };
+                  }): client is {
                     _id: string;
                     name: string;
-                    logoDark: { asset: { url: string } };
-                  } => Boolean(client.name && client.logoDark?.asset?.url)
+                    logoDark: {
+                      asset: { _id: string; _type: string; url: string };
+                    };
+                  } => Boolean(client.name && client.logoDark?.asset?._id)
                 )
-                .map((client) => {
-                  const logoImage = client.logoDark.asset;
-                  return (
-                    <div key={client._id}>
-                      <Image
-                        alt={client.name}
-                        blurDataURL={urlFor(logoImage)
-                          .width(24)
-                          .height(24)
-                          .quality(5)
-                          .auto("format")
-                          .url()}
-                        height={100}
-                        src={urlFor(logoImage).quality(75).auto("format").url()}
-                        width={100}
-                      />
-                    </div>
-                  );
-                })}
+                .map(
+                  (client: {
+                    _id: string;
+                    name: string;
+                    logoDark: {
+                      asset: { _id: string; _type: string; url: string };
+                    };
+                  }) => {
+                    const logoAsset = client.logoDark.asset;
+                    return (
+                      <div key={client._id}>
+                        <Image
+                          alt={client.name}
+                          blurDataURL={urlFor(logoAsset)
+                            .width(24)
+                            .height(24)
+                            .quality(5)
+                            .auto("format")
+                            .url()}
+                          height={100}
+                          src={urlFor(logoAsset)
+                            .quality(75)
+                            .auto("format")
+                            .url()}
+                          width={100}
+                        />
+                      </div>
+                    );
+                  }
+                )}
             </div>
           </div>
         )}
@@ -101,10 +118,13 @@ export default async function Page({
           <div className="flex flex-row flex-wrap items-start justify-start gap-x-2.5 gap-y-3">
             {service?.capabilities
               ?.filter(
-                (capability): capability is { _id: string; name: string } =>
+                (capability: {
+                  _id?: string;
+                  name?: string;
+                }): capability is { _id: string; name: string } =>
                   Boolean(capability.name)
               )
-              .map((capability) => (
+              .map((capability: { _id: string; name: string }) => (
                 <div
                   className="rounded-full border border-stone-500 px-3 py-1.5 text-stone-100"
                   key={capability._id}

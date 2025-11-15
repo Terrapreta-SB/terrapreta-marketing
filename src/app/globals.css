@@ -7,6 +7,7 @@
   --site-width: 1536px; /*  1280px;  */ /* 1728px */
   --article-width: 864px;
   --container-padding: 2rem;
+  --container-padding-mobile: 1rem;
 
   --color-orange-50: oklch(0.9777 0.0154 67.65);
   --color-orange-100: oklch(0.9482 0.037 68.66);
@@ -139,14 +140,26 @@
     max-width: var(--site-width);
     margin-inline: auto;
     width: 100%;
-    padding-inline: var(--container-padding);
+    padding-inline: var(--container-padding-mobile);
+  }
+
+  @media (width >= 768px) {
+    .container-site {
+      padding-inline: var(--container-padding);
+    }
   }
 
   .container-article {
     max-width: var(--article-width);
     margin-inline: auto;
     width: 100%;
-    padding-inline: var(--container-padding);
+    padding-inline: var(--container-padding-mobile);
+  }
+
+  @media (width >= 768px) {
+    .container-article {
+      padding-inline: var(--container-padding);
+    }
   }
 
   .font-settings {

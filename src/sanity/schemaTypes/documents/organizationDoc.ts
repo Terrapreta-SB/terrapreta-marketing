@@ -34,7 +34,6 @@ export const organizationDoc = defineType({
       type: "image",
       name: "logoLight",
       title: "Logo Black",
-      validation: (e) => e.required(),
     }),
   ],
   preview: {

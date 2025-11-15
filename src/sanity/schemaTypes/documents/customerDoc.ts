@@ -15,6 +15,9 @@ export const customerDoc = defineType({
       type: "image",
       name: "mainImage",
       title: "Main Image",
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
       type: "text",

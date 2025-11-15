@@ -22,6 +22,11 @@ type PortableImageProps = {
           };
         };
       };
+      dimensions?: {
+        width?: number;
+        height?: number;
+        aspectRatio?: number;
+      };
     };
   };
 };
@@ -45,20 +50,22 @@ export function PortableImage({ value }: PortableImageProps) {
     return null;
   }
 
-  // Get dimensions from asset metadata (when dereferenced in query)
-  const dimensions = (
-    value.image.asset as
-      | {
-          metadata?: {
-            dimensions?: {
-              width?: number;
-              height?: number;
-              aspectRatio?: number;
+  // Get dimensions from asset metadata (when dereferenced) or from separate dimensions field
+  const dimensions =
+    value.image.dimensions ||
+    (
+      value.image.asset as
+        | {
+            metadata?: {
+              dimensions?: {
+                width?: number;
+                height?: number;
+                aspectRatio?: number;
+              };
             };
-          };
-        }
-      | undefined
-  )?.metadata?.dimensions;
+          }
+        | undefined
+    )?.metadata?.dimensions;
   const aspectRatio = getAspectRatio(dimensions);
 
   // Use actual aspect ratio when available, otherwise use fixed ratios based on orientation

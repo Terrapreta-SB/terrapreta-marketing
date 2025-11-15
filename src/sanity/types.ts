@@ -66,6 +66,59 @@ export type LinkObject = {
   target?: "_self" | "_blank";
 };
 
+export type GridDimensionObject = {
+  _type: "gridDimensionObject";
+  isBig?: boolean;
+};
+
+export type ContentObject = {
+  _type: "contentObject";
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    _key: string;
+  } & ImageObject>;
+};
+
+export type ImageObject = {
+  _type: "imageObject";
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  altContent?: string;
+  caption?: string;
+};
+
+export type TitleSlugObject = {
+  _type: "titleSlugObject";
+  name?: string;
+  slug?: Slug;
+};
+
 export type Customer = {
   _id: string;
   _type: "customer";
@@ -86,6 +139,22 @@ export type Customer = {
     _type: "image";
   };
   shortDescription?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
 };
 
 export type UnGoal = {
@@ -226,6 +295,12 @@ export type Page = {
   } & HeroSplitModule>;
 };
 
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
 export type Glossary = {
   _id: string;
   _type: "glossary";
@@ -348,36 +423,6 @@ export type Research = {
   };
 };
 
-export type TitleSlugObject = {
-  _type: "titleSlugObject";
-  name?: string;
-  slug?: Slug;
-};
-
-export type ContentObject = {
-  _type: "contentObject";
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    _key: string;
-  } & ImageObject>;
-};
-
 export type Service = {
   _id: string;
   _type: "service";
@@ -438,24 +483,6 @@ export type Service = {
   }>;
 };
 
-export type ImageObject = {
-  _type: "imageObject";
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  altContent?: string;
-  caption?: string;
-};
-
 export type Tag = {
   _id: string;
   _type: "tag";
@@ -464,11 +491,6 @@ export type Tag = {
   _rev: string;
   name?: string;
   slug?: Slug;
-};
-
-export type GridDimensionObject = {
-  _type: "gridDimensionObject";
-  isBig?: boolean;
 };
 
 export type MediaTag = {
@@ -506,20 +528,15 @@ export type SanityImageDimensions = {
   aspectRatio?: number;
 };
 
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+export type SanityImageMetadata = {
+  _type: "sanity.imageMetadata";
+  location?: Geopoint;
+  dimensions?: SanityImageDimensions;
+  palette?: SanityImagePalette;
+  lqip?: string;
+  blurHash?: string;
+  hasAlpha?: boolean;
+  isOpaque?: boolean;
 };
 
 export type SanityFileAsset = {
@@ -542,6 +559,13 @@ export type SanityFileAsset = {
   path?: string;
   url?: string;
   source?: SanityAssetSourceData;
+};
+
+export type SanityAssetSourceData = {
+  _type: "sanity.assetSourceData";
+  name?: string;
+  id?: string;
+  url?: string;
 };
 
 export type SanityImageAsset = {
@@ -567,17 +591,6 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData;
 };
 
-export type SanityImageMetadata = {
-  _type: "sanity.imageMetadata";
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
-};
-
 export type Geopoint = {
   _type: "geopoint";
   lat?: number;
@@ -585,20 +598,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
-export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
-};
-
-export type AllSanitySchemaTypes = HeroSplitModule | Modules | LinkObject | Customer | UnGoal | Organization | Navigation | Process | Capability | About | Press | Site | Page | Glossary | Journal | Project | Research | TitleSlugObject | ContentObject | Service | ImageObject | Tag | GridDimensionObject | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = HeroSplitModule | Modules | LinkObject | GridDimensionObject | ContentObject | ImageObject | TitleSlugObject | Customer | SanityImageCrop | SanityImageHotspot | UnGoal | Organization | Navigation | Process | Capability | About | Press | Site | Page | Slug | Glossary | Journal | Project | Research | Service | Tag | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/app/(frontend)/_sections/logos.tsx
 // Variable: ORGANIZATIONS_QUERY
@@ -664,7 +664,7 @@ export type JOURNAL_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: JOURNAL_ITEM_QUERY
-// Query: *[_type == "journal" && slug.current == $slug][0]{  _id,  name,  slug,  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  location,  publishingDate,  shortDescription,  contentObject,  tag->{    _id,    name  }}
+// Query: *[_type == "journal" && slug.current == $slug][0]{  _id,  name,  slug,  mainImage{    _type,    image{      _type,      asset->{        _id,        url      }    }  },  location,  publishingDate,  shortDescription,  contentObject[]{    ...,    _type == "imageObject" => {      ...,      image{        ...,        hotspot,        crop,        asset->{          _id,          url,          metadata{            dimensions{              width,              height,              aspectRatio            }          }        }      }    }  },  tag->{    _id,    name  }}
 export type JOURNAL_ITEM_QUERYResult = {
   _id: string;
   name: string | null;
@@ -683,8 +683,6 @@ export type JOURNAL_ITEM_QUERYResult = {
   publishingDate: string | null;
   shortDescription: string | null;
   contentObject: Array<{
-    _key: string;
-  } & ImageObject | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -701,6 +699,28 @@ export type JOURNAL_ITEM_QUERYResult = {
     level?: number;
     _type: "block";
     _key: string;
+  } | {
+    _key: string;
+    _type: "imageObject";
+    image: {
+      asset: {
+        _id: string;
+        url: string | null;
+        metadata: {
+          dimensions: {
+            width: number | null;
+            height: number | null;
+            aspectRatio: number | null;
+          } | null;
+        } | null;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      _type: "image";
+    } | null;
+    altContent?: string;
+    caption?: string;
   }> | null;
   tag: {
     _id: string;
@@ -733,15 +753,13 @@ export type SERVICES_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: SERVICE_QUERY
-// Query: *[_type == "service" && slug.current == $slug][0]{  _id,  name,  slug,  shortDescription,  content,  capabilities[]->{    _id,    name  },  clients[]->{    _id,    name,    logoDark{      asset->{        url      }    }  },  mainImage{    image{      asset->{        url      }    }  }}
+// Query: *[_type == "service" && slug.current == $slug][0]{  _id,  name,  slug,  shortDescription,  content[]{    ...,    _type == "imageObject" => {      ...,      image{        ...,        hotspot,        crop,        asset->{          _id,          url,          metadata{            dimensions{              width,              height,              aspectRatio            }          }        }      }    }  },  capabilities[]->{    _id,    name  },  clients[]->{    _id,    name,    logoDark{      asset->{        _id,        _type,        url      }    }  },  mainImage{    image{      asset->{        url      }    }  }}
 export type SERVICE_QUERYResult = {
   _id: string;
   name: string | null;
   slug: Slug | null;
   shortDescription: string | null;
   content: Array<{
-    _key: string;
-  } & ImageObject | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -758,6 +776,28 @@ export type SERVICE_QUERYResult = {
     level?: number;
     _type: "block";
     _key: string;
+  } | {
+    _key: string;
+    _type: "imageObject";
+    image: {
+      asset: {
+        _id: string;
+        url: string | null;
+        metadata: {
+          dimensions: {
+            width: number | null;
+            height: number | null;
+            aspectRatio: number | null;
+          } | null;
+        } | null;
+      } | null;
+      media?: unknown;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      _type: "image";
+    } | null;
+    altContent?: string;
+    caption?: string;
   }> | null;
   capabilities: Array<{
     _id: string;
@@ -768,6 +808,8 @@ export type SERVICE_QUERYResult = {
     name: string | null;
     logoDark: {
       asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
         url: string | null;
       } | null;
     } | null;
@@ -801,12 +843,14 @@ export type UN_GOALS_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: CUSTOMERS_QUERY
-// Query: *[_type == "customer"] | order(name asc){  _id,  name,  shortDescription,  mainImage{    asset->{      _id,      url    }  }}
+// Query: *[_type == "customer"] | order(name asc){  _id,  name,  shortDescription,  mainImage{    hotspot,    crop,    asset->{      _id,      url    }  }}
 export type CUSTOMERS_QUERYResult = Array<{
   _id: string;
   name: string | null;
   shortDescription: string | null;
   mainImage: {
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
     asset: {
       _id: string;
       url: string | null;
@@ -821,11 +865,11 @@ declare module "@sanity/client" {
     "*[_type == \"organization\"]{\n  _id,\n  name,\n  type,\n  logoDark{\n    _type,\n    asset->{\n      _id,\n      url,\n    }\n  },\n}": ORGANIZATIONS_QUERYResult;
     "*[_type == \"project\" && defined(slug.current)] {\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  tag->{\n    _id,\n    name\n  }\n}": PROJECTS_QUERYResult;
     "*[_type == \"journal\" && defined(slug.current)] | order(publishingDate desc){\n  _id,\n  name,\n  slug,\n  shortDescription,\n  gridDimension{\n    isBig\n  },\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  publishingDate,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_QUERYResult;
-    "*[_type == \"journal\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  location,\n  publishingDate,\n  shortDescription,\n  contentObject,\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_ITEM_QUERYResult;
+    "*[_type == \"journal\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  },\n  location,\n  publishingDate,\n  shortDescription,\n  contentObject[]{\n    ...,\n    _type == \"imageObject\" => {\n      ...,\n      image{\n        ...,\n        hotspot,\n        crop,\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height,\n              aspectRatio\n            }\n          }\n        }\n      }\n    }\n  },\n  tag->{\n    _id,\n    name\n  }\n}": JOURNAL_ITEM_QUERYResult;
     "*[_type == \"tag\"] | order(name asc){\n  _id,\n  name,\n  slug\n}": TAGS_QUERYResult;
     "*[_type == \"service\" && defined(slug.current)] | order(name asc){\n  _id,\n  name,\n  slug,\n  shortDescription,\n  mainImage{\n    _type,\n    image{\n      _type,\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n}": SERVICES_QUERYResult;
-    "*[_type == \"service\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  shortDescription,\n  content,\n  capabilities[]->{\n    _id,\n    name\n  },\n  clients[]->{\n    _id,\n    name,\n    logoDark{\n      asset->{\n        url\n      }\n    }\n  },\n  mainImage{\n    image{\n      asset->{\n        url\n      }\n    }\n  }\n}": SERVICE_QUERYResult;
+    "*[_type == \"service\" && slug.current == $slug][0]{\n  _id,\n  name,\n  slug,\n  shortDescription,\n\n  content[]{\n    ...,\n    _type == \"imageObject\" => {\n      ...,\n      image{\n        ...,\n        hotspot,\n        crop,\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height,\n              aspectRatio\n            }\n          }\n        }\n      }\n    }\n  },\n  capabilities[]->{\n    _id,\n    name\n  },\n  clients[]->{\n    _id,\n    name,\n    logoDark{\n      asset->{\n        _id,\n        _type,\n        url\n      }\n    }\n  },\n  mainImage{\n    image{\n      asset->{\n        url\n      }\n    }\n  }\n}": SERVICE_QUERYResult;
     "*[_type == \"unGoal\"] | order(name asc){\n  _id,\n  name,\n  logoNegative{\n    _type,\n    asset->{\n      _id,\n      url\n    }\n  },\n  logoPositive{\n    _type,\n    asset->{\n      _id,\n      url\n    }\n  }\n}": UN_GOALS_QUERYResult;
-    "*[_type == \"customer\"] | order(name asc){\n  _id,\n  name,\n  shortDescription,\n  mainImage{\n    asset->{\n      _id,\n      url\n    }\n  }\n}": CUSTOMERS_QUERYResult;
+    "*[_type == \"customer\"] | order(name asc){\n  _id,\n  name,\n  shortDescription,\n  mainImage{\n    hotspot,\n    crop,\n    asset->{\n      _id,\n      url\n    }\n  }\n}": CUSTOMERS_QUERYResult;
   }
 }

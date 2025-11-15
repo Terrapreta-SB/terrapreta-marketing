@@ -13,7 +13,7 @@ export default function HomeHero() {
       <div className="relative flex h-full flex-col items-center justify-center">
         <div className="z-10 flex flex-col items-center justify-center gap-8">
           <hgroup className="mx-auto flex max-w-3xl starting:translate-y-4 translate-y-0 flex-col items-center justify-center gap-2.5 text-center opacity-100 starting:opacity-0 transition-all duration-800">
-            <h1 className="text-balance font-bold text-6xl">
+            <h1 className="text-balance font-bold text-4xl md:text-5xl lg:text-6xl">
               Regenerating ecosystems from the <em>Soil Up</em>
             </h1>
             <p className="text-pretty text-2xl">
