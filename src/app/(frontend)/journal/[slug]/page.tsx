@@ -36,7 +36,7 @@ export default async function Page({
   }
 
   return (
-    <article className="container-site mx-auto flex flex-col items-center justify-center gap-5 pt-40 pb-20">
+    <article className="container-site flex flex-col items-center justify-center gap-5 pt-30 pb-20 md:pt-40">
       <hgroup className="flex starting:translate-y-2 translate-y-0 flex-col items-center justify-center gap-5 text-balance pb-5 text-center starting:opacity-0 transition-all duration-400">
         <Breadcrumb>
           <BreadcrumbList>
@@ -51,8 +51,10 @@ export default async function Page({
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h1 className="text-5xl tracking-tight">{journalItem?.name}</h1>
-        <p className="text-pretty text-2xl text-stone-400">
+        <h1 className="text-3xl tracking-tight md:text-4xl lg:text-5xl">
+          {journalItem?.name}
+        </h1>
+        <p className="max-w-[70ch] text-pretty text-lg text-stone-400 md:text-xl lg:text-2xl">
           {journalItem?.shortDescription}
         </p>
       </hgroup>

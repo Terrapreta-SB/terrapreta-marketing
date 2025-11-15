@@ -29,7 +29,7 @@ export default async function Page({
               </p>
             </hgroup>
             <Button>
-              <Link href="/discovery-call">Book a Discovery Call</Link>
+              <Link href="/contacts">Book a Discovery Call</Link>
             </Button>
           </div>
           <div className="container-site relative aspect-3/2 rounded-md">
@@ -56,7 +56,7 @@ export default async function Page({
         </div>
       </div>
 
-      <article className="container-article space-y-20 py-20">
+      <article className="container-article container-site space-y-20 py-20">
         {/* Clients */}
         {service?.clients && (
           <div className="flex flex-col items-start justify-center">

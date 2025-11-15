@@ -174,6 +174,61 @@ export const SERVICE_QUERY =
   }
 }`);
 
+export const PROJECT_ITEM_QUERY =
+  defineQuery(`*[_type == "project" && slug.current == $slug][0]{
+  _id,
+  name,
+  slug,
+  mainImage{
+    _type,
+    image{
+      _type,
+      asset->{
+        _id,
+        url
+      }
+    }
+  },
+  status,
+  location,
+  areaRestored,
+  interventionType,
+  shortDescription,
+  pageContent{
+    content[]{
+      ...,
+      _type == "imageObject" => {
+        ...,
+        image{
+          ...,
+          hotspot,
+          crop,
+          asset->{
+            _id,
+            url,
+            metadata{
+              dimensions{
+                width,
+                height,
+                aspectRatio
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  relatedService->{
+    _id,
+    name,
+    slug
+  },
+  relatedResearch->{
+    _id,
+    name
+  }
+}`);
+
 export const UN_GOALS_QUERY =
   defineQuery(`*[_type == "unGoal"] | order(name asc){
   _id,
